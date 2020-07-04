@@ -25,3 +25,11 @@ export type UserInfo = {
   name: string
   icon: string
 }
+
+export type LinkMenu = {
+  name: string
+  links: {
+    url: string
+    label: string
+  }[]
+}
