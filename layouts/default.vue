@@ -1,8 +1,14 @@
 <template>
-  <div>
+  <v-app>
     <nuxt />
-  </div>
+  </v-app>
 </template>
+
+<script lang="ts">
+import Vue from 'vue'
+
+export default Vue.extend({})
+</script>
 
 <style>
 html {

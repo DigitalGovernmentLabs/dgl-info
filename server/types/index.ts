@@ -26,10 +26,16 @@ export type UserInfo = {
   icon: string
 }
 
-export type LinkMenu = {
-  name: string
-  links: {
-    url: string
-    label: string
-  }[]
+export type Link = {
+  linkId: number
+  linkOrder: number
+  url: string
+  label: string
+}
+
+export type LinkList = {
+  listId: number
+  listOrder: number
+  listTitle: string
+  links: Link | null[]
 }

@@ -1,0 +1,15 @@
+[
+  {
+    "listId": 0,
+    "listOrder": 0,
+    "listTitle": "法など",
+    "links": [
+      {
+        "listId": 0,
+        "listOrder": 0,
+        "url": "http://law.e-gov.go.jp/htmldata/H25/H25HO027.html",
+        "label": "番号法"
+      }
+    ]
+  }
+]
