@@ -1,0 +1,72 @@
+{
+  "name": "dgl-info",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "run-p dev:*",
+    "dev:front": "nuxt-ts",
+    "dev:server": "cd server && node_modules/.bin/webpack --watch --mode=development",
+    "dev:aspida": "aspida --watch",
+    "dev:frourio": "cd server && node_modules/.bin/frourio --watch",
+    "build": "npm run build:apis && run-p build:front build:server",
+    "build:front": "nuxt-ts build && nuxt-ts export",
+    "build:server": "cd server && node_modules/.bin/webpack --mode=production",
+    "build:apis": "cross-env NODE_ENV=production run-p build:aspida build:frourio",
+    "build:aspida": "aspida --build",
+    "build:frourio": "cd server && node_modules/.bin/frourio --build",
+    "install:server": "cd server && yarn install",
+    "lint": "npm run lint:js && npm run lint:style",
+    "lint:js": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
+    "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
+    "lint:fix": "npm run lint:js -- --fix && npm run lint:style -- --fix",
+    "typecheck": "npm run build:apis && tsc --noEmit",
+    "start": "run-p start:*",
+    "start:front": "nuxt-ts serve",
+    "start:server": "cd server && cross-env NODE_ENV=production node index.js",
+    "pm2:start": "cd server && node_modules/.bin/pm2 start pm2.config.json --env production",
+    "pm2:stop": "cd server && node_modules/.bin/pm2 stop pm2.config.json",
+    "pm2:delete": "cd server && node_modules/.bin/pm2 delete pm2.config.json",
+    "pm2:logs": "cd server && node_modules/.bin/pm2 logs",
+    "pm2:monit": "cd server && node_modules/.bin/pm2 monit",
+    "migration:generate": "cd server && ts-node ../node_modules/.bin/typeorm migration:generate -n Task",
+    "migration:run": "cd server && ts-node ../node_modules/.bin/typeorm migration:run",
+    "migration:revert": "cd server && ts-node ../node_modules/.bin/typeorm migration:revert"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "@aspida/axios": "^0.9.4",
+    "@nuxt/typescript-runtime": "^0.4.10",
+    "@nuxtjs/axios": "^5.11.0",
+    "dotenv": "^8.2.0",
+    "mysql": "^2.18.1",
+    "nuxt": "2.13.0"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^1.0.3",
+    "@nuxtjs/eslint-config": "^3.0.0",
+    "@nuxtjs/eslint-config-typescript": "^2.0.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/stylelint-module": "^4.0.0",
+    "babel-eslint": "^10.0.1",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.0.0",
+    "lint-staged": "^10.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "stylelint": "^10.1.0",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5"
+  }
+}
