@@ -52,7 +52,8 @@ const config: Configuration = {
   buildModules: [
     '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/vuetify'
   ],
   /*
    ** Nuxt.js modules
@@ -77,6 +78,13 @@ const config: Configuration = {
      ** You can extend webpack config here
     //  */
     // extend(config, ctx) {}
+  },
+  /*
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
+  vuetify: {
+    treeShake: true
   }
 }
 
