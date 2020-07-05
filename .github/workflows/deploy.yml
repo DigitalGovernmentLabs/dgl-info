@@ -35,6 +35,6 @@ jobs:
           yarn install --frozen-lockfile
           yarn install:server --frozen-lockfile
           echo "${{ secrets.SERVER_ENV }}" > server/.env
-          yarn build:aspida
+          yarn build:apis
           yarn build:front
           yarn deploy:front
