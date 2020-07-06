@@ -2,13 +2,11 @@ version: '3'
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql
     restart: always
     ports:
       - $TYPEORM_PORT:3306
     environment:
-      TZ: Asia/Tokyo
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $TYPEORM_DATABASE
       MYSQL_USER: $TYPEORM_USERNAME
       MYSQL_PASSWORD: $TYPEORM_PASSWORD
@@ -18,9 +16,6 @@ services:
 
   api:
     build: .
-    container_name: api
-    environment:
-      TZ: Asia/Tokyo
     ports:
       - 3000:$SERVER_PORT
     working_dir: /app
