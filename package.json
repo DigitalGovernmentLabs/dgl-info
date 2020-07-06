@@ -24,7 +24,7 @@
     "start": "run-p start:*",
     "start:front": "nuxt-ts serve",
     "start:server": "cd server && cross-env NODE_ENV=production node index.js",
-    "pm2:start": "cd server && node_modules/.bin/pm2 start pm2.config.json --env production",
+    "pm2:start": "cd server && node_modules/.bin/pm2-runtime start pm2.config.json --env production",
     "pm2:stop": "cd server && node_modules/.bin/pm2 stop pm2.config.json",
     "pm2:delete": "cd server && node_modules/.bin/pm2 delete pm2.config.json",
     "pm2:logs": "cd server && node_modules/.bin/pm2 logs",
@@ -47,7 +47,6 @@
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/axios": "^5.11.0",
     "dotenv": "^8.2.0",
-    "mysql": "^2.18.1",
     "nuxt": "2.13.0"
   },
   "devDependencies": {
