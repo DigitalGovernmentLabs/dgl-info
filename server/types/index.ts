@@ -30,7 +30,8 @@ export type Link = {
   linkId: number
   linkOrder: number
   url: string
-  label: string
+  name: string
+  description?: string
 }
 
 export type LinkList = {
