@@ -1,15 +1,1 @@
-[
-  {
-    "listId": 0,
-    "listOrder": 0,
-    "listTitle": "法など",
-    "links": [
-      {
-        "listId": 0,
-        "listOrder": 0,
-        "url": "http://law.e-gov.go.jp/htmldata/H25/H25HO027.html",
-        "label": "番号法"
-      }
-    ]
-  }
-]
+[{"listId":0,"listOrder":0,"listTitle":"法など","links":[{"listId":0,"listOrder":0,"url":"http://law.e-gov.go.jp/htmldata/H25/H25HO027.html","label":"番号法"},{"listId":1,"listOrder":1,"url":"http://law.e-gov.go.jp/htmldata/H25/H25HO027.html","label":"番号法2"}]},{"listId":1,"listOrder":1,"listTitle":"ホームページ","links":[{"listId":0,"listOrder":0,"url":"http://law.e-gov.go.jp/htmldata/H25/H25HO027.html","label":"番号法"},{"listId":1,"listOrder":1,"url":"http://law.e-gov.go.jp/htmldata/H25/H25HO027.html","label":"番号法2"}]}]

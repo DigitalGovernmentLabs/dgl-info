@@ -1,104 +1,49 @@
 <template>
   <div class="container">
     <user-banner />
-    <div>
-      <logo />
-      <h1 class="title">frourio-todo-app</h1>
-      <div v-if="!$fetchState.pending">
-        <div class="tasks">
-          <div v-for="linkList in linkLists" :key="linkList.listOrder">
+    <div v-if="!$fetchState.pending">
+      <v-row v-for="linkList in linkLists" :key="linkList.listOrder">
+        <v-col cols="12">
+          <h2>
             {{ linkList.listTitle }}
-            <div v-for="link in linkList.links" :key="link.listOrder">
-              <a :href="link.url" target="_blank">{{ link.label }}</a>
-            </div>
-          </div>
-        </div>
-      </div>
+          </h2>
+        </v-col>
+        <v-col v-for="link in linkList.links" :key="link.listOrder" cols="6">
+          <v-card class="mx-auto" max-width="500" outlined>
+            <v-list-item three-line>
+              <v-list-item-content>
+                <v-list-item-title class="headline mb-1">
+                  {{ link.label }}
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                  {{ link.url }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+
+            <v-card-actions>
+              <v-btn text>変更</v-btn>
+              <v-btn text>削除</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <!-- ここに書く -->
+        <add-link-dialog />
+      </v-row>
+
+      <v-row>
+        <v-col cols="12">
+          <v-text-field
+            v-model="newTitle"
+            :counter="100"
+            label="リストタイトル"
+            required
+            filled
+            @keyup.enter="addListTitle(newTitle)"
+          />
+        </v-col>
+      </v-row>
     </div>
-    <v-row justify="center">
-      <v-dialog v-model="dialog" persistent max-width="600px">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="primary" dark v-bind="attrs" v-on="on">
-            Open Dialog
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title>
-            <span class="headline">User Profile</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    label="Legal first name*"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    label="Legal middle name"
-                    hint="example of helper text only on focus"
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
-                  <v-text-field
-                    label="Legal last name*"
-                    hint="example of persistent helper text"
-                    persistent-hint
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Email*" required></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    label="Password*"
-                    type="password"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-select
-                    :items="['0-17', '18-29', '30-54', '54+']"
-                    label="Age*"
-                    required
-                  ></v-select>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-autocomplete
-                    :items="[
-                      'Skiing',
-                      'Ice hockey',
-                      'Soccer',
-                      'Basketball',
-                      'Hockey',
-                      'Reading',
-                      'Writing',
-                      'Coding',
-                      'Basejump'
-                    ]"
-                    label="Interests"
-                    multiple
-                  ></v-autocomplete>
-                </v-col>
-              </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false"
-              >Close</v-btn
-            >
-            <v-btn color="blue darken-1" text @click="dialog = false"
-              >Save</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-row>
   </div>
 </template>
 
@@ -112,12 +57,20 @@ export default Vue.extend({
   },
   data() {
     return {
-      linkLists: [] as LinkList[]
+      linkLists: [] as LinkList[],
+      newTitle: ''
     }
   },
   methods: {
     async fetchLinkLists() {
       this.linkLists = await this.$api.linkLists.$get()
+    },
+    async addListTitle() {
+      if (!this.newTitle) return
+
+      await this.$api.linkLists.post({ body: { listTitle: this.newTitle } })
+      this.newTitle = ''
+      await this.fetchLinkLists()
     }
   }
 })
