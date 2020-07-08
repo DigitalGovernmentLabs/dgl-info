@@ -19,15 +19,5 @@
     },
     "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios"]
   },
-  "include": [
-    "components",
-    "layouts",
-    "middleware",
-    "pages",
-    "plugins",
-    "store",
-    "server/types",
-    "server/api/**/index.ts",
-    "server/api/$api.ts"
-  ]
+  "exclude": ["node_modules", "server"]
 }
