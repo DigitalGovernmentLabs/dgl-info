@@ -34,6 +34,5 @@ jobs:
           git config --global user.name "gh-actions"
           yarn install --frozen-lockfile
           echo "${{ secrets.SERVER_ENV }}" > server/.env
-          yarn build:aspida
           yarn build:front
           yarn deploy:front
