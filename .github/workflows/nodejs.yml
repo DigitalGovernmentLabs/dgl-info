@@ -5,6 +5,16 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+         - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: app
+        volumes:
+          - $GITHUB_WORKSPACE/server/my.cnf:/etc/mysql/conf.d/my.cnf
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
