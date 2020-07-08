@@ -33,8 +33,7 @@ jobs:
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
           yarn install --frozen-lockfile
-          yarn install:server --frozen-lockfile
           echo "${{ secrets.SERVER_ENV }}" > server/.env
-          yarn build:apis
+          yarn build:aspida
           yarn build:front
           yarn deploy:front

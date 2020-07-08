@@ -19,11 +19,15 @@
     },
     "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios"]
   },
-  "exclude": [
-    "node_modules",
-    ".nuxt",
-    "dist",
-    "server/ormconfig.ts",
-    "server/*.js"
+  "include": [
+    "components",
+    "layouts",
+    "middleware",
+    "pages",
+    "plugins",
+    "store",
+    "server/types",
+    "server/api/**/index.ts",
+    "server/api/$api.ts"
   ]
 }

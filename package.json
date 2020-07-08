@@ -46,6 +46,7 @@
     "@aspida/axios": "^0.9.4",
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/axios": "^5.11.0",
+    "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "nuxt": "2.13.0"
   },
