@@ -55,4 +55,4 @@ jobs:
           User ec2-user
           IdentityFile ~/.ssh/id_rsa
           EOT
-      - run: ssh dgl.jp "cd dgl-info/server; ls; sh deploy.sh"
+      - run: ssh dgl.jp "cd dgl-info/server; git fetch origin master; sh deploy.sh"
