@@ -1,4 +1,5 @@
 #!/bin/sh
 
 docker-compose build --no-cache
-docker-compose up –-force-recreate
+docker-compose down --rmi all
+docker-compose up -d
