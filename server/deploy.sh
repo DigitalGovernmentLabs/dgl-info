@@ -1,4 +1,4 @@
 #!/bin/sh
 
 docker-compose build --no-cache
-docker-compose restart
+docker-compose up –force-recreate
