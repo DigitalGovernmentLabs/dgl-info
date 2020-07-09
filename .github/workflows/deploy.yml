@@ -36,3 +36,23 @@ jobs:
           echo "${{ secrets.SERVER_ENV }}" > server/.env
           yarn build:front
           yarn deploy:front
+
+  api-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Add key to allow access to server
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cat <<EOT >> ~/.ssh/config
+          Host dgl.jp
+          HostName ${{ secrets.SSH_HOST }}
+          User ec2-user
+          IdentityFile ~/.ssh/id_rsa
+          EOT
+      - run: ssh dgl.jp cd dgl-info/server && sh deploy.sh
