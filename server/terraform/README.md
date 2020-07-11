@@ -1,3 +1,9 @@
+## Setting
+
+TerraformのState管理用にS3バケットを手動で作る
+bucket name: dgl-terraform-state
+versioning: true
+
 ## run from local
 
 terraform.tfvars
