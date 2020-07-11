@@ -96,3 +96,9 @@ server/database.json
 server/.upload
 server/public/icons/*
 !server/public/icons/dammy.svg
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
