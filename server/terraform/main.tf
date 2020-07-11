@@ -6,6 +6,13 @@ variable tags {
   }
 }
 
+resource aws_s3_bucket terraform_state {
+  bucket = "dgl-terraform-state"
+  versioning {
+    enabled = true
+  }
+}
+
 resource aws_vpc dgl_vpc {
   cidr_block = "10.0.0.0/16"
   enable_dns_support = true
