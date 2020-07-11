@@ -40,7 +40,7 @@ resource aws_route_table_association dgl_association {
 }
 
 resource aws_security_group dgl_sec {
-  name = "admin"
+  name = "dgl.jp admin"
   description = "Allow SSH inbound traffic"
   vpc_id = aws_vpc.dgl_vpc.id
   ingress {
@@ -63,7 +63,7 @@ data aws_ssm_parameter amzn2_ami {
 }
 
 resource aws_key_pair auth {
-  key_name = "dgl.jp.pub"
+  key_name = "dgl.jp"
   public_key = var.public_key
   tags = var.tags
 }
