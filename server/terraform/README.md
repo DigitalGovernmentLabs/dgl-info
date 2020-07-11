@@ -3,6 +3,7 @@
 TerraformのState管理用にS3バケットを手動で作る
 bucket name: dgl-terraform-state
 versioning: true
+tags: Name = dgl.jp
 
 ## run from local
 

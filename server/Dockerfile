@@ -1,6 +1,6 @@
 FROM node:12-alpine
 
-COPY . .
+COPY . /app
 
 RUN yarn install --frozen-lockfile
 
