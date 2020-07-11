@@ -1,14 +1,14 @@
 FROM node:12-alpine
 
-COPY ./package.json /app
+COPY ./package.json /app/
 
-COPY ./yarn.lock /app
+COPY ./yarn.lock /app/
 
 WORKDIR /app
 
 RUN yarn install --frozen-lockfile
 
-COPY . /app
+COPY . /app/
 
 RUN yarn build
 
