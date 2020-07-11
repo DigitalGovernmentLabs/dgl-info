@@ -1,9 +1,9 @@
-name: terraform
+name: server
 
 on: push
 
 jobs:
-  apply:
+  terraform:
     runs-on: ubuntu-latest
     env:
       TF_VAR_public_key: ${{ secrets.PUBLIC_KEY }}
@@ -31,7 +31,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: apply
+    needs: terraform
     if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v2
