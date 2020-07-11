@@ -21,12 +21,12 @@ jobs:
         with:
           terraform_version: 0.12.24
       - id: init
-        run: cd server && terraform init
+        run: cd server/terraform && terraform init
       - id: plan
-        run: ls && cd server && terraform plan -no-color
+        run: cd server/terraform && terraform plan -no-color
         if: github.ref != 'refs/heads/master'
       - id: apply
-        run: cd server && terraform apply -auto-approve -no-color
+        run: cd server/terraform && terraform apply -auto-approve -no-color
         if: github.ref == 'refs/heads/master'
 
   deploy:
