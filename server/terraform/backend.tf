@@ -7,7 +7,7 @@ resource aws_s3_bucket terraform_state {
 
 terraform {
   backend s3 {
-    bucket = aws_s3_bucket.terraform_state.dgl-terraform-state
+    bucket = "dgl-terraform-state"
     key    = "terraform.tfstate"
   }
 }
