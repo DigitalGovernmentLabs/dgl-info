@@ -23,7 +23,7 @@ jobs:
       - id: init
         run: cd server && terraform init
       - id: plan
-        run: cd server && terraform plan -no-color
+        run: ls && cd server && terraform plan -no-color
         if: github.ref != 'refs/heads/master'
       - id: apply
         run: cd server && terraform apply -auto-approve -no-color
