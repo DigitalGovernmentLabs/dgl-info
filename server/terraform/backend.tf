@@ -10,4 +10,5 @@ terraform {
     bucket = "dgl-terraform-state"
     key    = "terraform.tfstate"
   }
+  depends_on = aws_s3_bucket.terraform_state.id
 }
