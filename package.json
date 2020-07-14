@@ -28,9 +28,9 @@
     "pm2:delete": "cd server && node_modules/.bin/pm2 delete pm2.config.json",
     "pm2:logs": "cd server && node_modules/.bin/pm2 logs",
     "pm2:monit": "cd server && node_modules/.bin/pm2 monit",
-    "migration:generate": "cd server && ts-node ../node_modules/.bin/typeorm migration:generate -n Task",
-    "migration:run": "cd server && ts-node ../node_modules/.bin/typeorm migration:run",
-    "migration:revert": "cd server && ts-node ../node_modules/.bin/typeorm migration:revert"
+    "migration:generate": "cd server && ts-node node_modules/.bin/typeorm migration:generate -n Task",
+    "migration:run": "cd server && ts-node node_modules/.bin/typeorm migration:run",
+    "migration:revert": "cd server && ts-node node_modules/.bin/typeorm migration:revert"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint",
