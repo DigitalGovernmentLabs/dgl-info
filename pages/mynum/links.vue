@@ -8,7 +8,7 @@
             {{ linkList.listTitle }}
           </h2>
         </v-col>
-        <v-col v-for="link in linkList.links" :key="link.listOrder" cols="6">
+        <v-col v-for="link in linkList.links" :key="link.linkOrder" cols="6">
           <v-card class="mx-auto" max-width="500" outlined>
             <v-list-item three-line>
               <v-list-item-content>
@@ -39,7 +39,7 @@
             label="リストタイトル"
             required
             filled
-            @keyup.enter="addListTitle(newTitle)"
+            @keyup.enter="addListTitle()"
           />
         </v-col>
       </v-row>
