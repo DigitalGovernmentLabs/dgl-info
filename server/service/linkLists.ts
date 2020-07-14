@@ -5,7 +5,7 @@ const linkListRepository = () => getRepository(LinkList)
 
 export const findAllLists = () => linkListRepository().find()
 export const findOneList = (listId: LinkList['listId']) =>
-  linkListRepository().findOne({ listId })
+  linkListRepository().findOneOrFail({ listId })
 export const createLinkList = async (listTitle: LinkList['listTitle']) => {
   const linkLists = await findAllLists()
   const newId =

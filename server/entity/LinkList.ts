@@ -17,6 +17,6 @@ export class LinkList {
     (type) => Link,
     (link) => link.linkList
   )
-  links: Link | null[]
+  links: Link[]
   /* eslint-enable */
 }

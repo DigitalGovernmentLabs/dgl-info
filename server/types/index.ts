@@ -38,5 +38,5 @@ export type LinkList = {
   listId: number
   listOrder: number
   listTitle: string
-  links: Link | null[]
+  links: Link[]
 }

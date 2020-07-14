@@ -1,13 +1,13 @@
 import { createController } from './$relay'
-import { linkListRepository } from '$/service/linkLists'
+import { findAllLists, createLinkList } from '$/service/linkLists'
 
 export default createController({
   get: async () => ({
     status: 200,
-    body: await linkListRepository.getLinkLists()
+    body: await findAllLists()
   }),
   post: async ({ body }) => {
-    const linkLists = await linkListRepository.createLinkLists(body.listTitle)
+    const linkLists = await createLinkList(body.listTitle)
     return { status: 201, body: linkLists }
   }
 })

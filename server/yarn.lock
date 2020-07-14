@@ -2039,7 +2039,7 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
-frourio@^0.10.2:
+frourio@^0.10.3:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/frourio/-/frourio-0.10.3.tgz#044f5104df46901ad161eba8704dfa59af9df725"
   integrity sha512-NZVlEmNnZAX7dI/S10QnfcV7L3wF8I8YV4t3vf8w2xdL2sBN/dJiCHYi8Ohm4aST1yOyre2u1PFZggw/uTRYfw==
