@@ -7,6 +7,7 @@ const USER_PASS = process.env.USER_PASS ?? ''
 const SERVER_PORT = process.env.SERVER_PORT ?? ''
 const BASE_PATH = process.env.BASE_PATH ?? ''
 const API_ORIGIN = process.env.API_ORIGIN ?? ''
+const CORS_ORIGIN = process.env.CORS_ORIGIN ?? ''
 const TYPEORM_HOST = process.env.TYPEORM_HOST ?? ''
 const TYPEORM_USERNAME = process.env.TYPEORM_USERNAME ?? ''
 const TYPEORM_PASSWORD = process.env.TYPEORM_PASSWORD ?? ''
@@ -19,6 +20,7 @@ export {
   SERVER_PORT,
   BASE_PATH,
   API_ORIGIN,
+  CORS_ORIGIN,
   TYPEORM_HOST,
   TYPEORM_USERNAME,
   TYPEORM_PASSWORD,

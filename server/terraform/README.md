@@ -27,4 +27,4 @@ provider aws {
 }
 ```
 
-$ docker run --rm -v $PWD:/work -w /work hashicorp/terraform:light <command>
+$ docker run --rm -v $PWD:/work -w /work hashicorp/terraform:light \<command>
