@@ -1,40 +1,28 @@
-import fs from 'fs'
-import { LinkList } from '$/types'
+import { getRepository } from 'typeorm'
+import { LinkList } from '$/entity/LinkList'
 
-const filename = 'linkLists.json'
+const linkListRepository = () => getRepository(LinkList)
 
-if (!fs.existsSync(filename)) {
-  fs.writeFileSync(filename, '[]', 'utf-8')
-}
-
-const readFile = async (): Promise<LinkList[]> =>
-  JSON.parse(await fs.promises.readFile(filename, 'utf-8'))
-const writeFile = async (newList: LinkList[]) =>
-  await fs.promises.writeFile(filename, JSON.stringify(newList), 'utf-8')
-
-export const linkListRepository = {
-  getLinkLists: () => readFile(),
-  createLinkLists: async (listTitle: string) => {
-    const linkLists = await readFile()
-    const newId =
-      linkLists.length > 0
-        ? Math.max(...linkLists.map((linkList: LinkList) => linkList.listId)) +
-          1
-        : 0
-    const newOrder =
-      linkLists.length > 0
-        ? Math.max(
-            ...linkLists.map((linkList: LinkList) => linkList.listOrder)
-          ) + 1
-        : 0
-    const newList = {
-      listId: newId,
-      listOrder: newOrder,
-      listTitle,
-      links: []
-    }
-    linkLists.push(newList)
-    writeFile(linkLists)
-    return linkLists
+export const findAllLists = () => linkListRepository().find()
+export const findOneList = (listId: LinkList['listId']) =>
+  linkListRepository().findOne({ listId })
+export const createLinkList = async (listTitle: LinkList['listTitle']) => {
+  const linkLists = await findAllLists()
+  const newId =
+    linkLists.length > 0
+      ? Math.max(...linkLists.map((linkList: LinkList) => linkList.listId)) + 1
+      : 0
+  const newOrder =
+    linkLists.length > 0
+      ? Math.max(...linkLists.map((linkList: LinkList) => linkList.listOrder)) +
+        1
+      : 0
+  const newList = {
+    listId: newId,
+    listOrder: newOrder,
+    listTitle,
+    links: []
   }
+  await linkListRepository().save(newList)
+  return await findAllLists()
 }
