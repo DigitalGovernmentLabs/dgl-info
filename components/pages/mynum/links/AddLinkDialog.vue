@@ -14,13 +14,13 @@
       <v-card-text>
         <v-row>
           <v-col cols="12">
-            <v-text-field label="リンク名 *" required></v-text-field>
+            <v-text-field v-model="newLink.name" label="リンク名 *" required />
           </v-col>
           <v-col cols="12">
-            <v-text-field label="URL *" required></v-text-field>
+            <v-text-field v-model="newLink.url" label="URL *" required />
           </v-col>
           <v-col cols="12">
-            <v-text-field label="説明"></v-text-field>
+            <v-text-field v-model="newLink.description" label="説明" />
           </v-col>
           <small>*必須入力項目</small>
         </v-row>
@@ -30,7 +30,11 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn
+          color="blue darken-1"
+          text
+          @click=";(dialog = false), addListTitle()"
+        >
           Save
         </v-btn>
       </v-card-actions>
@@ -39,11 +43,24 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { LinkList, Link } from '~/server/types'
 
 export default Vue.extend({
   data() {
     return {
-      dialog: false
+      dialog: false,
+      linkList: {} as LinkList,
+      newLink: {
+        url: '',
+        name: '',
+        description: ''
+      } as Link
+    }
+  },
+  methods: {
+    async addListTitle() {
+      // あとでlinkIdをとるようにlinks.vueからデータとして受領する。
+      await this.$api.links._linkListId(1).post({ body: this.newLink })
     }
   }
 })
