@@ -2,6 +2,7 @@ import { run } from './$app'
 import {
   SERVER_PORT,
   BASE_PATH,
+  CORS_ORIGIN,
   TYPEORM_HOST,
   TYPEORM_USERNAME,
   TYPEORM_PASSWORD,
@@ -12,7 +13,7 @@ import {
 run({
   port: Number(SERVER_PORT),
   basePath: BASE_PATH,
-  cors: true,
+  cors: { origin: CORS_ORIGIN || '*' },
   typeorm: {
     type: 'mysql',
     host: TYPEORM_HOST,
