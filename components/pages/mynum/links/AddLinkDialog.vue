@@ -11,8 +11,10 @@
       <v-card-title>
         <span class="headline">外部リンク</span>
       </v-card-title>
+      <v-card-text> リスト名：{{ linkList.listTitle }} </v-card-text>
       <v-card-text>
         <v-row>
+          <v-label></v-label>
           <v-col cols="12">
             <v-text-field v-model="newLink.name" label="リンク名 *" required />
           </v-col>
@@ -42,14 +44,19 @@
   </v-dialog>
 </template>
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropOptions } from 'vue'
 import { LinkList, Link } from '~/server/types'
 
 export default Vue.extend({
+  props: {
+    linkList: {
+      type: Object,
+      required: true
+    } as PropOptions<LinkList>
+  },
   data() {
     return {
       dialog: false,
-      linkList: {} as LinkList,
       newLink: {
         url: '',
         name: '',
@@ -59,8 +66,10 @@ export default Vue.extend({
   },
   methods: {
     async addListTitle() {
-      // あとでlinkIdをとるようにlinks.vueからデータとして受領する。
-      await this.$api.links._linkListId(1).post({ body: this.newLink })
+      await this.$api.links
+        ._linkListId(this.linkList.listId)
+        .post({ body: this.newLink })
+      this.$emit('refetch')
     }
   }
 })

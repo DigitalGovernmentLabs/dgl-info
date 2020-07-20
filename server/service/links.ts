@@ -10,25 +10,22 @@ export const createLink = async (
   listId: LinkList['listId']
 ) => {
   const linkList = await findOneList(listId)
-  const links = linkList.links
-  const newId =
-    links.length > 0
-      ? Math.max(...links.map((link: Link) => link.linkId)) + 1
-      : 0
+  const links = await linkRepository().find({
+    where: { linkList: { listId } }
+  })
+  console.log(links)
+
   const newOrder =
     links.length > 0
       ? Math.max(...links.map((link: Link) => link.linkOrder)) + 1
       : 0
-
-  const newLink = new Link()
-
-  newLink.linkId = newId
-  newLink.linkOrder = newOrder
-  newLink.url = link.url
-  newLink.name = link.name
-  newLink.description = link.description
-  newLink.linkList = linkList
+  const newLink = {
+    linkOrder: newOrder,
+    url: link.url,
+    name: link.name,
+    description: link.description,
+    linkList
+  } as Link
 
   await linkRepository().save(newLink)
-  return await findOneList(listId)
 }

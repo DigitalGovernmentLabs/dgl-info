@@ -28,7 +28,7 @@
           </v-card>
         </v-col>
         <!-- ここに書く -->
-        <add-link-dialog />
+        <add-link-dialog :link-list="linkList" @refetch="fetchLinkLists()" />
       </v-row>
 
       <v-row>

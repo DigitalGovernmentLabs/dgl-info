@@ -1,8 +1,7 @@
-import { Link, LinkList } from '$/types'
+import { Link } from '$/types'
 
 export type Methods = {
   post: {
-    reqBody: Omit<Link, 'linkId' | 'linkOrder'>
-    resBody: LinkList
+    reqBody: Pick<Link, 'url' | 'name' | 'description'>
   }
 }
