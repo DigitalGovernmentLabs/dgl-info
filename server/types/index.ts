@@ -40,3 +40,5 @@ export type LinkList = {
   listTitle: string
   links: Link[]
 }
+
+export type PartialLink = Partial<Pick<Link, 'name' | 'url' | 'description'>>
