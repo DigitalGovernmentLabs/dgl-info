@@ -32,17 +32,14 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click=";(dialog = false), addListTitle()"
-        >
+        <v-btn color="blue darken-1" text @click="addListTitle()">
           Save
         </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
+
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { LinkList, Link } from '~/server/types'
@@ -69,6 +66,7 @@ export default Vue.extend({
       await this.$api.links
         ._linkListId(this.linkList.listId)
         .post({ body: this.newLink })
+      this.dialog = false
       this.$emit('refetch')
     }
   }
