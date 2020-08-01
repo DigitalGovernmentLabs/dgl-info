@@ -4,28 +4,22 @@
     <div v-if="!$fetchState.pending">
       <v-row v-for="linkList in linkLists" :key="linkList.listOrder">
         <v-col cols="12">
-          <h2>
-            {{ linkList.listTitle }}
-          </h2>
+          <h2 v-text="linkList.listTitle" />
         </v-col>
         <v-col v-for="link in linkList.links" :key="link.linkOrder" cols="6">
           <v-card class="mx-auto" max-width="500" outlined>
             <v-list-item three-line>
               <v-list-item-content>
-                <v-list-item-title class="headline mb-1">
-                  {{ link.name }}
-                </v-list-item-title>
+                <v-list-item-title class="headline mb-1" v-text="link.name" />
                 <v-list-item-subtitle>
                   <a
                     :href="link.url"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >{{ link.url }}</a
-                  >
+                    v-text="link.url"
+                  />
                 </v-list-item-subtitle>
-                <v-list-item-subtitle>
-                  {{ link.description }}
-                </v-list-item-subtitle>
+                <v-list-item-subtitle v-text="link.description" />
               </v-list-item-content>
             </v-list-item>
 
@@ -86,7 +80,8 @@ export default Vue.extend({
       await this.fetchLinkLists()
     },
     async deleteLink(linkId: number) {
-      await this.$api.links._linkId(linkId).delete()
+      console.log(linkId)
+      // await this.$api.links._linkId(linkId).delete()
       await this.fetchLinkLists()
     }
   }

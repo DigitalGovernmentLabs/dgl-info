@@ -26,14 +26,6 @@ export type UserInfo = {
   icon: string
 }
 
-export type Link = {
-  linkId: number
-  linkOrder: number
-  url: string
-  name: string
-  description?: string
-}
-
 export type LinkList = {
   listId: number
   listOrder: number
@@ -41,4 +33,11 @@ export type LinkList = {
   links: Link[]
 }
 
-export type PartialLink = Partial<Pick<Link, 'name' | 'url' | 'description'>>
+export type Link = {
+  linkId: number
+  linkOrder: number
+  url: string
+  name: string
+  description?: string
+}
+export type PickLink = Pick<Link, 'name' | 'url' | 'description'>

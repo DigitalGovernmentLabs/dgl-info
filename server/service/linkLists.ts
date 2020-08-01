@@ -11,6 +11,7 @@ export const findAllLists = () =>
 
 export const findOneList = (listId: LinkList['listId']) =>
   linkListRepository().findOneOrFail({ listId })
+
 export const createLinkList = async (listTitle: LinkList['listTitle']) => {
   const linkLists = await findAllLists()
 
@@ -19,10 +20,10 @@ export const createLinkList = async (listTitle: LinkList['listTitle']) => {
       ? Math.max(...linkLists.map((linkList: LinkList) => linkList.listOrder)) +
         1
       : 0
-  const newList = {
+  const newList: Pick<LinkList, 'listOrder' | 'listTitle'> = {
     listOrder: newOrder,
     listTitle
-  } as LinkList
+  }
   await linkListRepository().save(newList)
   return await findAllLists()
 }

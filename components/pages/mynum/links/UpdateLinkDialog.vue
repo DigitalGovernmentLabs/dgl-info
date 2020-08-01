@@ -13,16 +13,16 @@
           <v-label></v-label>
           <v-col cols="12">
             <v-text-field
-              v-model="partialLink.name"
+              v-model="updatedLink.name"
               label="リンク名 *"
               required
             />
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model="partialLink.url" label="URL *" required />
+            <v-text-field v-model="updatedLink.url" label="URL *" required />
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model="partialLink.description" label="説明" />
+            <v-text-field v-model="updatedLink.description" label="説明" />
           </v-col>
           <small>*必須入力項目</small>
         </v-row>
@@ -45,7 +45,7 @@
 </template>
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
-import { LinkList, Link, PartialLink } from '~/server/types'
+import { LinkList, Link } from '~/server/types'
 
 export default Vue.extend({
   props: {
@@ -61,18 +61,20 @@ export default Vue.extend({
   data() {
     return {
       dialog: false,
-      partialLink: {
+      updatedLink: {
+        linkId: this.link.linkId,
+        linkOrder: this.link.linkOrder,
         url: this.link.url,
         name: this.link.name,
         description: this.link.description
-      } as PartialLink
+      } as Link
     }
   },
   methods: {
     async updateLink() {
       await this.$api.links
-        ._linkId(this.link.linkId)
-        .patch({ body: this.partialLink })
+        ._linkListId(this.linkList.listId)
+        .patch({ body: this.updatedLink })
       this.$emit('refetch')
     }
   }

@@ -2,13 +2,13 @@ import { getRepository } from 'typeorm'
 import { findOneList } from './linkLists'
 import { Link } from '$/entity/Link'
 import { LinkList } from '$/entity/LinkList'
-import { PartialLink } from '$/types'
+import { PickLink, Link as TypeLink } from '$/types'
 
 const linkRepository = () => getRepository(Link)
 
 export const createLink = async (
-  link: Pick<Link, 'url' | 'name' | 'description'>,
-  listId: LinkList['listId']
+  listId: LinkList['listId'],
+  link: PickLink
 ) => {
   const linkList = await findOneList(listId)
   const links = await linkRepository().find({
@@ -19,33 +19,36 @@ export const createLink = async (
     links.length > 0
       ? Math.max(...links.map((link: Link) => link.linkOrder)) + 1
       : 0
-  const newLink = {
+  const newLink: Omit<Link, 'linkId'> = {
     linkOrder: newOrder,
     url: link.url,
     name: link.name,
     description: link.description,
     linkList
-  } as Link
+  }
 
   await linkRepository().save(newLink)
 }
 
-export const removeLink = async (linkId: Link['linkId']) => {
-  const link = await linkRepository().findOne({ linkId })
-  if (link) await linkRepository().remove(link)
+export const removeLink = async (link: TypeLink) => {
+  const removedLink = await linkRepository().findOne({ linkId: link.linkId })
+  if (removedLink) await linkRepository().remove(removedLink)
 }
 
-// eslint-disable-next-line complexity
-export const updateLink = async (
-  linkId: Link['linkId'],
-  partialLink: PartialLink
-) => {
-  const link = await linkRepository().findOne({ linkId })
-  if (!link) return
+export const updateLink = async (link: TypeLink) => {
+  const updatedLink = await linkRepository().findOne({ linkId: link.linkId })
+  if (!updatedLink) return
 
-  link.name = partialLink.name ?? link.name
-  link.url = partialLink.url ?? link.url
-  link.description = partialLink.description ?? link.description
+  const { name, url, description } = {
+    ...updateLink,
+    ...link
+  }
 
-  await linkRepository().save(link)
+  await linkRepository().save({
+    linkId: updatedLink.linkId,
+    linkOrder: updatedLink.linkOrder,
+    name,
+    url,
+    description
+  })
 }

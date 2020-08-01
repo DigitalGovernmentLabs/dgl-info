@@ -1,7 +1,15 @@
-import { Link } from '$/types'
+import { Link, PickLink } from '$/types'
 
 export type Methods = {
   post: {
-    reqBody: Pick<Link, 'url' | 'name' | 'description'>
+    reqBody: PickLink
+  }
+  patch: {
+    reqBody: Link
+    status: 204
+  }
+  delete: {
+    reqBody: Link
+    status: 204
   }
 }

@@ -42,7 +42,7 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
-import { LinkList, Link } from '~/server/types'
+import { LinkList, PickLink } from '~/server/types'
 
 export default Vue.extend({
   props: {
@@ -58,7 +58,7 @@ export default Vue.extend({
         url: '',
         name: '',
         description: ''
-      } as Link
+      } as PickLink
     }
   },
   methods: {
