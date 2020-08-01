@@ -7,7 +7,7 @@ export default createController({
     body: await findAllLists()
   }),
   post: async ({ body }) => {
-    const linkLists = await createLinkList(body.listTitle)
-    return { status: 201, body: linkLists }
+    await createLinkList(body.listTitle)
+    return { status: 204 }
   }
 })

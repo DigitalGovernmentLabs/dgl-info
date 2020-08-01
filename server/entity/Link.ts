@@ -18,11 +18,9 @@ export class Link {
   @Column()
   description?: string
 
-  /* eslint-disable */
   @ManyToOne(
-    (type) => LinkList,
+    () => LinkList,
     (linkList) => linkList.listId
   )
   linkList: LinkList
-  /* eslint-enable */
 }

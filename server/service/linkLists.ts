@@ -25,5 +25,4 @@ export const createLinkList = async (listTitle: LinkList['listTitle']) => {
     listTitle
   }
   await linkListRepository().save(newList)
-  return await findAllLists()
 }

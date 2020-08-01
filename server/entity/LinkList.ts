@@ -12,11 +12,9 @@ export class LinkList {
   @Column({ length: 100 })
   listTitle: string
 
-  /* eslint-disable */
   @OneToMany(
-    (type) => Link,
+    () => Link,
     (link) => link.linkList
   )
   links: Link[]
-  /* eslint-enable */
 }

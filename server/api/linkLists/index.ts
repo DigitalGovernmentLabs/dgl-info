@@ -6,6 +6,5 @@ export type Methods = {
   }
   post: {
     reqBody: Pick<LinkList, 'listTitle'>
-    resBody: LinkList[]
   }
 }
