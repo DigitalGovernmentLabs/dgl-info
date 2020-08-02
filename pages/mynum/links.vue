@@ -2,7 +2,7 @@
   <div class="container">
     <user-banner />
     <div v-if="!$fetchState.pending">
-      <v-row v-for="linkList in sortedLinkLists" :key="linkList.listId">
+      <v-row v-for="linkList in linkLists" :key="linkList.listId">
         <v-col cols="12">
           <h2 v-text="linkList.listTitle" />
         </v-col>
@@ -68,23 +68,6 @@ export default Vue.extend({
     return {
       linkLists: [] as LinkList[],
       newTitle: ''
-    }
-  },
-  computed: {
-    sortedLinkLists() {
-      const listsOfLinksSorted: LinkList[] = this.linkLists.map((element) => {
-        return {
-          listId: element.listId,
-          listOrder: element.listOrder,
-          listTitle: element.listTitle,
-          links: [...element.links].sort((a, b) =>
-            a.linkOrder > b.linkOrder ? 1 : -1
-          )
-        }
-      })
-      return [...listsOfLinksSorted].sort((a, b) =>
-        a.listOrder > b.listOrder ? 1 : -1
-      )
     }
   },
   methods: {

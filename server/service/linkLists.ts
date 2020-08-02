@@ -7,6 +7,8 @@ export const findAllLists = () =>
   linkListRepository()
     .createQueryBuilder('linklist')
     .leftJoinAndSelect('linklist.links', 'link')
+    .orderBy('linklist.listOrder')
+    .addOrderBy('link.linkOrder')
     .getMany()
 
 export const findOneList = (listId: LinkList['listId']) =>
