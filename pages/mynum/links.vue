@@ -30,7 +30,7 @@
                 :link="link"
                 @refetch="fetchLinkLists()"
               />
-              <v-btn text @click="deleteLink(linkList.listId, link)">
+              <v-btn text @click="deleteLink(link)">
                 削除
               </v-btn>
             </v-card-actions>
@@ -81,8 +81,8 @@ export default Vue.extend({
       this.newTitle = ''
       await this.fetchLinkLists()
     },
-    async deleteLink(listId: number, link: Link) {
-      await this.$api.links._linkListId(listId).delete({ body: link })
+    async deleteLink(link: Link) {
+      await this.$api.links._linkId(link.linkId).delete()
       await this.fetchLinkLists()
     }
   }

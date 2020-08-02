@@ -73,7 +73,7 @@ export default Vue.extend({
   methods: {
     async updateLink() {
       await this.$api.links
-        ._linkListId(this.linkList.listId)
+        ._linkId(this.link.linkId)
         .patch({ body: this.updatedLink })
       this.$emit('refetch')
     }

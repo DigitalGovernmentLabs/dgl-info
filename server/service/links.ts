@@ -30,13 +30,16 @@ export const createLink = async (
   await linkRepository().save(newLink)
 }
 
-export const removeLink = async (link: TypeLink) => {
-  const removedLink = await linkRepository().findOne({ linkId: link.linkId })
+export const removeLink = async (linkId: TypeLink['linkId']) => {
+  const removedLink = await linkRepository().findOne({ linkId })
   if (removedLink) await linkRepository().remove(removedLink)
 }
 
-export const updateLink = async (link: TypeLink) => {
-  const updatedLink = await linkRepository().findOne({ linkId: link.linkId })
+export const updateLink = async (
+  linkId: TypeLink['linkId'],
+  link: TypeLink
+) => {
+  const updatedLink = await linkRepository().findOne({ linkId })
   if (!updatedLink) return
 
   const { name, url, description } = {
