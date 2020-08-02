@@ -13,13 +13,15 @@ export const findOneList = (listId: LinkList['listId']) =>
   linkListRepository().findOneOrFail({ listId })
 
 export const createLinkList = async (listTitle: LinkList['listTitle']) => {
-  const linkLists = await findAllLists()
+  type MaxObject = { maxOrder?: LinkList['listOrder'] }
 
-  const newOrder =
-    linkLists.length > 0
-      ? Math.max(...linkLists.map((linkList: LinkList) => linkList.listOrder)) +
-        1
-      : 0
+  const maxObject: MaxObject = await linkListRepository()
+    .createQueryBuilder('linklist')
+    .select('MAX(linklist.listOrder)', 'maxOrder')
+    .getRawOne()
+
+  const newOrder = maxObject.maxOrder ? maxObject.maxOrder + 1 : 0
+
   const newList: Pick<LinkList, 'listOrder' | 'listTitle'> = {
     listOrder: newOrder,
     listTitle
