@@ -18,9 +18,9 @@
     "lint:fix": "npm run lint:js -- --fix && npm run lint:style -- --fix",
     "typecheck": "npm run build:aspida && npm run build:frourio && tsc --noEmit && tsc --noEmit -p server",
     "deploy:front": "push-dir --dir=dist --branch=gh-pages --cleanup",
-    "migration:generate": "cd server && ts-node ../node_modules/.bin/typeorm migration:generate -n Task",
-    "migration:run": "cd server && ts-node ../node_modules/.bin/typeorm migration:run",
-    "migration:revert": "cd server && ts-node ../node_modules/.bin/typeorm migration:revert"
+    "migration:generate": "cd server && ts-node node_modules/.bin/typeorm migration:generate -n Task",
+    "migration:run": "cd server && ts-node node_modules/.bin/typeorm migration:run",
+    "migration:revert": "cd server && ts-node node_modules/.bin/typeorm migration:revert"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint",
