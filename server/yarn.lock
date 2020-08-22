@@ -2015,10 +2015,10 @@ from2@^2.1.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
 
-frourio@^0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/frourio/-/frourio-0.10.4.tgz#5fe5f91e50041a9c869f2f3e0f7cd0908b7d95de"
-  integrity sha512-/9XS1xx8+1JWndGuQ2T9KCm6OR3NArgtVQhw8B9ipXe8/g6+k/O1ZRukpqb/FKYvi/J/0NmThGJ7Iake238S5A==
+frourio@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/frourio/-/frourio-0.11.0.tgz#2b8e30e408d8d42d1aafe17a462cd6d695339e38"
+  integrity sha512-cumnFVFPtyhFvMpiEDZ3f6YRgKoLo4H0ZVBT26ZFt8dvBdJHrKsDuWyOZ59ZeAveLocBXRSSsKTqsxKk5O4q9g==
   dependencies:
     "@types/cors" "^2.8.6"
     "@types/express" "^4.17.7"
