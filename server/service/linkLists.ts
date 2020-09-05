@@ -22,11 +22,8 @@ export const createLinkList = async (listTitle: LinkList['listTitle']) => {
     .select('MAX(linklist.listOrder)', 'maxOrder')
     .getRawOne()
 
-  const newOrder =
-    typeof maxObject.maxOrder === 'number' ? maxObject.maxOrder + 1 : 0
-
   const newList: Pick<LinkList, 'listOrder' | 'listTitle'> = {
-    listOrder: newOrder,
+    listOrder: (maxObject.maxOrder ?? 0) + 1,
     listTitle
   }
   await linkListRepository().save(newList)
