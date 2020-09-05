@@ -32,11 +32,7 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Close
         </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click=";(dialog = false), updateLink()"
-        >
+        <v-btn color="blue darken-1" text @click="updateLink()">
           Save
         </v-btn>
       </v-card-actions>
@@ -72,6 +68,7 @@ export default Vue.extend({
   },
   methods: {
     async updateLink() {
+      this.dialog = false
       await this.$api.links
         ._linkId(this.link.linkId)
         .patch({ body: this.updatedLink })
