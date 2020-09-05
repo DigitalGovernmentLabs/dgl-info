@@ -30,7 +30,7 @@ export type LinkList = {
   listId: number
   listOrder: number
   listTitle: string
-  links: Link[]
+  links?: Link[]
 }
 
 export type Link = {

@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm'
-import { findOneList } from './linkLists'
+// import { findOneList } from './linkLists'
 import { Link } from '$/entity/Link'
 import { LinkList } from '$/entity/LinkList'
 import { PickLink, Link as TypeLink } from '$/types'
@@ -10,7 +10,6 @@ export const createLink = async (
   listId: LinkList['listId'],
   link: PickLink
 ) => {
-  const linkList = await findOneList(listId)
   const links = await linkRepository().find({
     where: { linkList: { listId } }
   })
@@ -24,7 +23,7 @@ export const createLink = async (
     url: link.url,
     name: link.name,
     description: link.description,
-    linkList
+    listId
   }
 
   await linkRepository().save(newLink)

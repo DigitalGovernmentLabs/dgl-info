@@ -16,5 +16,5 @@ export class LinkList {
     () => Link,
     (link) => link.linkList
   )
-  links: Link[]
+  links?: Link[]
 }
