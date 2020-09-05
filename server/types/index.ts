@@ -40,4 +40,5 @@ export type Link = {
   name: string
   description?: string
 }
+
 export type PickLink = Pick<Link, 'name' | 'url' | 'description'>
