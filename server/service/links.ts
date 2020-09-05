@@ -10,16 +10,14 @@ export const createLink = async (
   listId: LinkList['listId'],
   link: PickLink
 ) => {
-  const links = await linkRepository().find({
-    where: { linkList: { listId } }
-  })
+  const maxLinkOrder = await linkRepository()
+    .createQueryBuilder('link')
+    .select('MAX(link.linkOrder)', 'max')
+    .where('link.listId = :listId', { listId })
+    .getRawOne()
 
-  const newOrder =
-    links.length > 0
-      ? Math.max(...links.map((link: Link) => link.linkOrder)) + 1
-      : 0
   const newLink: Omit<Link, 'linkId'> = {
-    linkOrder: newOrder,
+    linkOrder: typeof maxLinkOrder.max === 'number' ? maxLinkOrder.max + 1 : 0,
     url: link.url,
     name: link.name,
     description: link.description,
