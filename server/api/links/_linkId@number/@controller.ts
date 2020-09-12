@@ -1,5 +1,5 @@
 import { createController } from './$relay'
-import { removeLink, updateLink } from '$/service/links'
+import { deleteLink, updateLink } from '$/service/links'
 
 export default createController({
   patch: async ({ params, body }) => {
@@ -7,7 +7,7 @@ export default createController({
     return { status: 204 }
   },
   delete: async ({ params }) => {
-    await removeLink(params.linkId)
+    await deleteLink(params.linkId)
     return { status: 204 }
   }
 })
