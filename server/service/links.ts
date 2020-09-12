@@ -1,5 +1,4 @@
 import { getRepository } from 'typeorm'
-// import { findOneList } from './linkLists'
 import { Link } from '$/entity/Link'
 import { LinkList } from '$/entity/LinkList'
 import { PickLink, Link as TypeLink } from '$/types'

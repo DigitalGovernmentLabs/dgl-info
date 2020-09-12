@@ -39,6 +39,7 @@
     </v-card>
   </v-dialog>
 </template>
+
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { LinkList, Link } from '~/server/types'

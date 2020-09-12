@@ -11,9 +11,6 @@ export const findAllLists = () =>
     .addOrderBy('link.linkOrder')
     .getMany()
 
-export const findOneList = (listId: LinkList['listId']) =>
-  linkListRepository().findOneOrFail({ listId })
-
 export const createLinkList = async (listTitle: LinkList['listTitle']) => {
   type MaxObject = { maxOrder?: LinkList['listOrder'] }
 
