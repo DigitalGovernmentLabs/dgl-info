@@ -16,7 +16,7 @@ export const createLink = async (
     .getRawOne()
 
   const newLink: Omit<Link, 'linkId'> = {
-    linkOrder: maxLinkOrder.max === 'number' ? maxLinkOrder.max + 1 : 1,
+    linkOrder: typeof maxLinkOrder.max === 'number' ? maxLinkOrder.max + 1 : 1,
     url: link.url,
     name: link.name,
     description: link.description,
