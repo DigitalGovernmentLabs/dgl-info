@@ -1,4 +1,9 @@
-import { run } from './$app'
+import 'reflect-metadata'
+import express from 'express'
+import helmet from 'helmet'
+import cors from 'cors'
+import { createConnection } from 'typeorm'
+import app from './$app'
 import {
   SERVER_PORT,
   BASE_PATH,
@@ -9,20 +14,21 @@ import {
   TYPEORM_DATABASE,
   TYPEORM_PORT
 } from './service/envValues'
+import ormOptions from './$orm'
 
-run({
-  port: Number(SERVER_PORT),
-  basePath: BASE_PATH,
-  cors: { origin: CORS_ORIGIN || '*' },
-  typeorm: {
-    type: 'mysql',
-    host: TYPEORM_HOST,
-    username: TYPEORM_USERNAME,
-    password: TYPEORM_PASSWORD,
-    database: TYPEORM_DATABASE,
-    port: Number(TYPEORM_PORT),
-    migrationsRun: true,
-    synchronize: false,
-    logging: false
-  }
-})
+const server = express()
+server.use(helmet())
+server.use(cors({ origin: CORS_ORIGIN || '*' }))
+
+createConnection({
+  type: 'mysql',
+  host: TYPEORM_HOST,
+  username: TYPEORM_USERNAME,
+  password: TYPEORM_PASSWORD,
+  database: TYPEORM_DATABASE,
+  port: Number(TYPEORM_PORT),
+  migrationsRun: true,
+  synchronize: false,
+  logging: false,
+  ...ormOptions
+}).then(() => app(server, { basePath: BASE_PATH }).listen(SERVER_PORT))

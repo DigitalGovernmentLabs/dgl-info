@@ -6,36 +6,36 @@
         <v-col cols="12">
           <h2 v-text="linkList.listTitle" />
         </v-col>
-        <v-col v-for="link in linkList.links" :key="link.linkId" cols="6">
-          <v-card class="mx-auto" max-width="500" outlined>
-            <v-list-item three-line>
-              <v-list-item-content>
-                <v-list-item-title class="headline mb-1" v-text="link.name" />
-                <v-list-item-subtitle>
-                  <a
-                    :href="link.url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    v-text="link.url"
-                  />
-                </v-list-item-subtitle>
-                <v-list-item-subtitle v-text="link.description" />
-              </v-list-item-content>
-            </v-list-item>
+        <template v-if="linkList.links">
+          <v-col v-for="link in linkList.links" :key="link.linkId" cols="6">
+            <v-card class="mx-auto" max-width="500" outlined>
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <v-list-item-title class="headline mb-1" v-text="link.name" />
+                  <v-list-item-subtitle>
+                    <a
+                      :href="link.url"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      v-text="link.url"
+                    />
+                  </v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="link.description" />
+                </v-list-item-content>
+              </v-list-item>
 
-            <v-card-actions>
-              <!-- <v-btn text>変更</v-btn> -->
-              <update-link-dialog
-                :link-list="linkList"
-                :link="link"
-                @refetch="fetchLinkLists()"
-              />
-              <v-btn text @click="deleteLink(link)">
-                削除
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+              <v-card-actions>
+                <!-- <v-btn text>変更</v-btn> -->
+                <update-link-dialog
+                  :link-list="linkList"
+                  :link="link"
+                  @refetch="fetchLinkLists()"
+                />
+                <v-btn text @click="deleteLink(link)"> 削除 </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </template>
         <!-- ここに書く -->
         <add-link-dialog :link-list="linkList" @refetch="fetchLinkLists()" />
       </v-row>

@@ -8,56 +8,61 @@
     "dev:server": "cd server && node_modules/.bin/webpack --watch --mode=development",
     "dev:aspida": "aspida --watch",
     "dev:frourio": "cd server && node_modules/.bin/frourio --watch",
-    "build:front": "npm run build:aspida && nuxt-ts build && nuxt-ts export",
-    "build:aspida": "aspida --build",
-    "build:frourio": "cd server && node_modules/.bin/frourio --build",
+    "build:front": "npm run build:aspida && nuxt-ts generate",
+    "build:aspida": "aspida",
+    "build:frourio": "cd server && node_modules/.bin/frourio",
+    "build:typeormer": "cd server && node_modules/.bin/typeormer",
     "install:server": "cd server && yarn install",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:js": "eslint --ext .ts,.js,.vue .",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
     "lint:fix": "npm run lint:js -- --fix && npm run lint:style -- --fix",
-    "typecheck": "npm run build:aspida && npm run build:frourio && tsc --noEmit && tsc --noEmit -p server",
+    "typecheck": "npm run build:aspida && npm run build:typeormer && npm run build:frourio && tsc --noEmit && tsc --noEmit -p server",
     "deploy:front": "push-dir --dir=dist --branch=gh-pages --cleanup",
     "migration:generate": "cd server && ts-node node_modules/.bin/typeorm migration:generate -n Task",
     "migration:run": "cd server && ts-node node_modules/.bin/typeorm migration:run",
     "migration:revert": "cd server && ts-node node_modules/.bin/typeorm migration:revert"
   },
-  "lint-staged": {
-    "*.{js,ts,vue}": "eslint",
-    "*.{css,vue}": "stylelint"
+  "prettier": {
+    "semi": false,
+    "arrowParens": "always",
+    "trailingComma": "none",
+    "singleQuote": true
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ]
   },
   "dependencies": {
-    "@aspida/axios": "^0.9.4",
-    "@nuxt/typescript-runtime": "^0.4.10",
-    "@nuxtjs/axios": "^5.11.0",
+    "@aspida/axios": "^0.11.3",
+    "@nuxt/typescript-runtime": "^2.0.0",
+    "@nuxtjs/axios": "^5.12.2",
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
-    "nuxt": "2.13.0"
+    "nuxt": "^2.14.5"
   },
   "devDependencies": {
-    "@nuxt/typescript-build": "^1.0.3",
-    "@nuxtjs/eslint-config": "^3.0.0",
-    "@nuxtjs/eslint-config-typescript": "^2.0.0",
+    "@nuxt/types": "^2.14.5",
+    "@nuxt/typescript-build": "^2.0.3",
+    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-config-typescript": "^3.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.1.0",
     "cross-env": "^7.0.2",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^6.10.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "eslint-plugin-prettier": "^3.1.2",
-    "husky": "^4.0.0",
-    "lint-staged": "^10.0.0",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-nuxt": "^1.0.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.19.1",
-    "stylelint": "^13.6.1",
-    "ts-loader": "^7.0.5",
-    "typescript": "^3.9.5"
+    "prettier": "^2.1.1",
+    "stylelint": "^13.7.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2"
   }
 }

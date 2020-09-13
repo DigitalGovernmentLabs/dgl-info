@@ -12,9 +12,6 @@ export class LinkList {
   @Column({ length: 100 })
   listTitle: string
 
-  @OneToMany(
-    () => Link,
-    (link) => link.linkList
-  )
+  @OneToMany(() => Link, (link) => link.linkList)
   links?: Link[]
 }

@@ -2,15 +2,12 @@ import { Configuration } from '@nuxt/types'
 
 const config: Configuration = {
   /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  mode: 'spa',
-  /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
   target: 'static',
+  ssr: false,
+  telemetry: false,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
