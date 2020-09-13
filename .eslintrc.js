@@ -6,14 +6,15 @@ module.exports = {
   },
   extends: [
     '@nuxtjs/eslint-config-typescript',
-    'prettier',
-    'prettier/vue',
+    'plugin:nuxt/recommended',
     'plugin:prettier/recommended',
-    'plugin:nuxt/recommended'
+    'prettier',
+    'prettier/@typescript-eslint',
+    'prettier/standard',
+    'prettier/unicorn',
+    'prettier/vue'
   ],
-  plugins: [
-    'prettier'
-  ],
+  plugins: ['prettier'],
   // add your custom rules here
   rules: {
     complexity: ['error', 4],

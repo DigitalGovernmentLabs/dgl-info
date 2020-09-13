@@ -27,10 +27,7 @@ export class Link {
   @Column()
   readonly listId: number
 
-  @ManyToOne(
-    () => LinkList,
-    (linkList) => linkList.listId
-  )
+  @ManyToOne(() => LinkList, (linkList) => linkList.listId)
   @JoinColumn({ name: 'listId' })
   readonly linkList?: LinkList
 }
