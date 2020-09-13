@@ -31,7 +31,7 @@
                   :link="link"
                   @refetch="fetchLinkLists()"
                 />
-                <v-btn text @click="deleteLink(link)"> 削除 </v-btn>
+                <v-btn text @click="deleteLink(link)">削除</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
