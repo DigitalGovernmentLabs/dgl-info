@@ -3,7 +3,7 @@ import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import { createConnection } from 'typeorm'
-import app from './$app'
+import server from './$server'
 import {
   SERVER_PORT,
   BASE_PATH,
@@ -16,9 +16,9 @@ import {
 } from './service/envValues'
 import ormOptions from './$orm'
 
-const server = express()
-server.use(helmet())
-server.use(cors({ origin: CORS_ORIGIN || '*' }))
+const app = express()
+app.use(helmet())
+app.use(cors({ origin: CORS_ORIGIN || '*' }))
 
 createConnection({
   type: 'mysql',
@@ -31,4 +31,4 @@ createConnection({
   synchronize: false,
   logging: false,
   ...ormOptions
-}).then(() => app(server, { basePath: BASE_PATH }).listen(SERVER_PORT))
+}).then(() => server(app, { basePath: BASE_PATH }).listen(SERVER_PORT))

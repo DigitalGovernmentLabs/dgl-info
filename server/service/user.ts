@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { API_ORIGIN, BASE_PATH, USER_ID, USER_PASS } from './envValues'
-import { MulterFile } from '$/$app'
+import { MulterFile } from '$/$server'
 
 const iconsDir = 'public/icons'
 const createIconURL = (name: string) =>
