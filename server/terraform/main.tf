@@ -1,5 +1,7 @@
 variable public_key {}
 variable private_key {}
+variable ssl_certificate {}
+variable ssl_certificate_key {}
 variable tags {
   default = {
     Name = "dgl.jp"
@@ -40,7 +42,7 @@ resource aws_route_table_association dgl_association {
 }
 
 resource aws_security_group dgl_sec {
-  name = "dgl.jp admin"
+  name = "${var.tags.Name} admin"
   description = "Allow SSH and HTTP traffic"
   vpc_id = aws_vpc.dgl_vpc.id
   egress {
@@ -61,10 +63,10 @@ resource aws_security_group_rule dgl_inbound_ssh {
   security_group_id = aws_security_group.dgl_sec.id
 }
 
-resource aws_security_group_rule dgl_inbound_http {
+resource aws_security_group_rule dgl_inbound_https {
   type = "ingress"
-  from_port = 80
-  to_port = 80
+  from_port = 443
+  to_port = 443
   protocol = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.dgl_sec.id
@@ -75,7 +77,7 @@ data aws_ssm_parameter amzn2_ami {
 }
 
 resource aws_key_pair auth {
-  key_name = "dgl.jp"
+  key_name = var.tags.Name
   public_key = var.public_key
   tags = var.tags
 }
@@ -97,6 +99,7 @@ resource aws_instance dgl_instance {
   root_block_device {
     volume_type = "gp2"
     volume_size = 10
+    delete_on_termination = false
   }
   tags = var.tags
   volume_tags = var.tags
@@ -115,8 +118,51 @@ resource aws_instance dgl_instance {
       "sudo curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo yum install git -y",
-      "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000",
-      "git clone https://github.com/DigitalGovernmentLabs/dgl-info.git"
+      # "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000",
+      "git clone https://github.com/DigitalGovernmentLabs/dgl-info.git",
+      "sudo amazon-linux-extras install nginx1 -y",
+      "sudo echo \"${var.ssl_certificate}\" > /etc/ssl/${var.tags.Name}.pem",
+      "sudo echo \"${var.ssl_certificate_key}\" > /etc/ssl/${var.tags.Name}.key",
+      <<EOF
+sudo cat <<EOT > /etc/nginx/nginx.conf
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile            on;
+    tcp_nopush          on;
+    tcp_nodelay         on;
+    keepalive_timeout   65;
+    types_hash_max_size 4096;
+
+    include             /etc/nginx/mime.types;
+    default_type        application/octet-stream;
+
+    server {
+        listen 443 ssl;
+        ssl_certificate /etc/ssl/${var.tags.Name}.pem;
+        ssl_certificate_key /etc/ssl/${var.tags.Name}.key;
+        location / {
+            proxy_pass http://127.0.0.1:3000;
+        }
+    }
+}
+EOF
+,
+      "sudo systemctl start nginx.service"
     ]
   }
 }
