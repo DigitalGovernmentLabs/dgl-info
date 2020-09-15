@@ -8,6 +8,8 @@ jobs:
     env:
       TF_VAR_public_key: ${{ secrets.PUBLIC_KEY }}
       TF_VAR_private_key: ${{ secrets.GH_PAGES_DEPLOY }}
+      TF_VAR_ssl_certificate: ${{ secrets.SSL_CERTIFICATE }}
+      TF_VAR_ssl_certificate_key: ${{ secrets.SSL_CERTIFICATE_KEY }}
     steps:
       - uses: actions/checkout@v2
       - name: configure AWS credentials
