@@ -21,7 +21,7 @@ app.use(helmet())
 app.use(cors({ origin: CORS_ORIGIN || '*' }))
 
 createConnection({
-  type: 'mysql',
+  type: 'postgres',
   host: TYPEORM_HOST,
   username: TYPEORM_USERNAME,
   password: TYPEORM_PASSWORD,
