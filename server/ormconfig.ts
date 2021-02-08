@@ -12,7 +12,7 @@ const {
 } = process.env
 
 const options: ConnectionOptions = {
-  type: 'mysql',
+  type: 'postgres',
   host: TYPEORM_HOST,
   username: TYPEORM_USERNAME,
   password: TYPEORM_PASSWORD,
@@ -27,5 +27,4 @@ const options: ConnectionOptions = {
   }
 }
 
-// @ts-ignore
 export = options

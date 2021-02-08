@@ -1,26 +1,26 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:5.7
+  postgres:
+    image: postgres:13
     restart: always
     ports:
-      - $TYPEORM_PORT:3306
+      - $TYPEORM_PORT:5432
+    env_file: ./.env
     environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $TYPEORM_DATABASE
-      MYSQL_USER: $TYPEORM_USERNAME
-      MYSQL_PASSWORD: $TYPEORM_PASSWORD
+      POSTGRES_USER: $TYPEORM_USERNAME
+      POSTGRES_DB: $TYPEORM_DATABASE
+      POSTGRES_PASSWORD: $TYPEORM_PASSWORD
     volumes:
-      - mysql_data:/var/lib/mysql
-      - ./my.cnf:/etc/mysql/conf.d/my.cnf
+      - pg_data:/var/lib/postgresql/data/
 
   api:
     build: .
+    env_file: ./.env
     ports:
       - 3000:$SERVER_PORT
     depends_on:
-      - mysql
+      - postgres
 
 volumes:
-  mysql_data:
+  pg_data:
     driver: local
