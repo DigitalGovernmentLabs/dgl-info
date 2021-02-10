@@ -1,14 +1,8 @@
 # dgl-info
 
-## Build Setup
-
 ```bash
-# install dependencies
-$ yarn install
-$ yarn install:server
-
-# serve with hot reload at localhost:3000
-$ yarn dev
+yarn install
+yarn dev
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+- [http://127.0.0.1:41441](http://127.0.0.1:41441)
