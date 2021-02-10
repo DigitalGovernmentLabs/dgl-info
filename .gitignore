@@ -91,11 +91,8 @@ sw.*
 
 # server
 server/**/$*.ts
-server/index.js
 server/database.json
-server/.upload
-server/public/icons/*
-!server/public/icons/dammy.svg
+server/build/
 
 # Terraform
 .terraform

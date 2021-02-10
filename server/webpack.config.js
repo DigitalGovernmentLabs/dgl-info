@@ -1,17 +1,21 @@
+const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const NodemonPlugin = require('nodemon-webpack-plugin')
 
+/** @type import('webpack').Configuration */
 module.exports = {
   externals: [nodeExternals()],
-  entry: './index.ts',
+  entry: {
+    index: './entrypoints/index.ts'
+  },
   target: 'node',
   node: {
     __dirname: false
   },
   output: {
-    filename: 'index.js',
-    path: __dirname
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'build')
   },
   module: {
     rules: [{ test: /\.ts$/, loader: 'ts-loader' }]
@@ -19,9 +23,13 @@ module.exports = {
   optimization: {
     minimize: false
   },
-  plugins: [new NodemonPlugin()],
+  plugins: [
+    new NodemonPlugin({
+      script: './build/index.js'
+    })
+  ],
   resolve: {
-    extensions: ['.ts'],
+    extensions: ['.js', '.ts'],
     plugins: [new TsconfigPathsPlugin()]
   }
 }
