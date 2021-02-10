@@ -1,6 +1,6 @@
 import passport from 'passport'
 import { defineHooks } from './$relay'
-import { getUserIdByToken } from '$/service/user'
+import { getUserIdByToken } from '$/service/users'
 
 export type User = {
   id: string

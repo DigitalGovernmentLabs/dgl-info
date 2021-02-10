@@ -1,5 +1,5 @@
 import { defineController } from './$relay'
-import { validateUser, createToken, deleteToken } from '$/service/user'
+import { validateUser, createToken, deleteToken } from '$/service/users'
 
 export default defineController(() => ({
   post: ({ body }) =>

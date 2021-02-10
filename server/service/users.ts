@@ -1,20 +1,8 @@
-import fs from 'fs'
-import path from 'path'
 import { API_ORIGIN, BASE_PATH, USER_ID, USER_PASS } from './envValues'
-import { MulterFile } from '$/$server'
 
 const iconsDir = 'public/icons'
 const createIconURL = (name: string) =>
   `${API_ORIGIN}${BASE_PATH}/icons/${name}`
-const userInfo = {
-  name: 'sample user',
-  icon: createIconURL(
-    fs
-      .readdirSync(path.resolve(iconsDir))
-      .filter((n) => n !== 'dammy.svg')
-      .pop() ?? 'dammy.svg'
-  )
-}
 
 let userToken: string | null = null
 
@@ -27,8 +15,6 @@ export const validateToken = (token: string) =>
 export const getUserIdByToken = (token: string) =>
   validateToken(token) && { id: USER_ID }
 
-export const getUserInfoById = (id: string) => ({ id, ...userInfo })
-
 export const createToken = () => {
   userToken = `token:${Date.now()}`
   return userToken
@@ -36,14 +22,4 @@ export const createToken = () => {
 
 export const deleteToken = (token: string) => {
   if (validateToken(token)) userToken = null
-}
-
-export const changeIcon = async (id: string, iconFile: MulterFile) => {
-  const iconName = `${Date.now()}${path.extname(iconFile.originalname)}`
-
-  await fs.promises.copyFile(iconFile.path, path.resolve(iconsDir, iconName))
-  await fs.promises.unlink(iconFile.path)
-
-  userInfo.icon = createIconURL(iconName)
-  return { id, ...userInfo }
 }
