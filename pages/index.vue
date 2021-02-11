@@ -33,42 +33,42 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Task } from '$/types'
+import Vue from "vue";
+import { Task } from "$/types";
 
 export default Vue.extend({
-  async fetch() {
-    await this.fetchTasks()
-  },
   data() {
     return {
       tasks: [] as Task[],
-      newLabel: ''
-    }
+      newLabel: "",
+    };
+  },
+  async fetch() {
+    await this.fetchTasks();
   },
   methods: {
     async fetchTasks() {
-      this.tasks = await this.$api.tasks.$get()
+      this.tasks = await this.$api.tasks.$get();
     },
     async createTask() {
-      if (!this.newLabel) return
+      if (!this.newLabel) return;
 
-      await this.$api.tasks.post({ body: { label: this.newLabel } })
-      this.newLabel = ''
-      await this.fetchTasks()
+      await this.$api.tasks.post({ body: { label: this.newLabel } });
+      this.newLabel = "";
+      await this.fetchTasks();
     },
     async toggleDone(task: Task) {
       await this.$api.tasks
         ._taskId(task.id)
-        .patch({ body: { done: !task.done } })
-      await this.fetchTasks()
+        .patch({ body: { done: !task.done } });
+      await this.fetchTasks();
     },
     async remove(task: Task) {
-      await this.$api.tasks._taskId(task.id).delete()
-      await this.fetchTasks()
-    }
-  }
-})
+      await this.$api.tasks._taskId(task.id).delete();
+      await this.fetchTasks();
+    },
+  },
+});
 </script>
 
 <style scoped>
@@ -82,8 +82,8 @@ export default Vue.extend({
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;

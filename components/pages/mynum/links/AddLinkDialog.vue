@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-col cols="6">
         <v-card fab dark color="indigo" v-bind="attrs" v-on="on">
           <v-icon dark>mdi-plus</v-icon>
@@ -39,34 +39,34 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from 'vue'
-import { LinkList, PickLink } from '~/server/types'
+import Vue, { PropOptions } from "vue";
+import { LinkList, PickLink } from "~/server/types";
 
 export default Vue.extend({
   props: {
     linkList: {
       type: Object,
-      required: true
-    } as PropOptions<LinkList>
+      required: true,
+    } as PropOptions<LinkList>,
   },
   data() {
     return {
       dialog: false,
       newLink: {
-        url: '',
-        name: '',
-        description: ''
-      } as PickLink
-    }
+        url: "",
+        name: "",
+        description: "",
+      } as PickLink,
+    };
   },
   methods: {
     async addListTitle() {
       await this.$api.links.post({
-        body: { listId: this.linkList.listId, pickLink: this.newLink }
-      })
-      this.dialog = false
-      this.$emit('refetch')
-    }
-  }
-})
+        body: { listId: this.linkList.listId, pickLink: this.newLink },
+      });
+      this.dialog = false;
+      this.$emit("refetch");
+    },
+  },
+});
 </script>

@@ -1,16 +1,16 @@
-import 'reflect-metadata'
-import { createConnection } from 'typeorm'
-import dotenv from 'dotenv'
-import ormOptions from '$/$orm'
+import "reflect-metadata";
+import { createConnection } from "typeorm";
+import dotenv from "dotenv";
+import ormOptions from "$/$orm";
 
-import ormConfig from '$/ormconfig'
-import { init } from '$/service/app'
+import ormConfig from "$/ormconfig";
+import { init } from "$/service/app";
 
-dotenv.config()
+dotenv.config();
 
-const app = init()
+const app = init();
 
-createConnection({
+void createConnection({
   ...ormConfig,
-  ...ormOptions
-}).then(() => app.listen(Number(process.env.API_SERVER_PORT || '3000')))
+  ...ormOptions,
+}).then(() => app.listen(Number(process.env.API_SERVER_PORT || "3000")));

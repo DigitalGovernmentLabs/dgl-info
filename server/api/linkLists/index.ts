@@ -1,10 +1,10 @@
-import { LinkList } from '$/types'
+import { LinkList } from "$/types";
 
 export type Methods = {
   get: {
-    resBody: LinkList[]
-  }
+    resBody: LinkList[];
+  };
   post: {
-    reqBody: Pick<LinkList, 'listTitle'>
-  }
-}
+    reqBody: Pick<LinkList, "listTitle">;
+  };
+};

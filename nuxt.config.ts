@@ -1,11 +1,11 @@
-import { Configuration } from '@nuxt/types'
+import { Configuration } from "@nuxt/types";
 
 const config: Configuration = {
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: 'static',
+  target: "static",
   ssr: false,
   telemetry: false,
   /*
@@ -13,22 +13,22 @@ const config: Configuration = {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: process.env.npm_package_name || "",
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
-        hid: 'description',
-        name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        hid: "description",
+        name: "description",
+        content: process.env.npm_package_description || "",
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: { color: "#fff" },
   /*
    ** Global CSS
    */
@@ -37,7 +37,7 @@ const config: Configuration = {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/api'],
+  plugins: ["~/plugins/api"],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -47,24 +47,24 @@ const config: Configuration = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxt/typescript-build',
+    "@nuxt/typescript-build",
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify'
+    "@nuxtjs/stylelint-module",
+    "@nuxtjs/vuetify",
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    "@nuxtjs/axios",
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: require('./aspida.config').baseURL
+    baseURL: require("./aspida.config").baseURL,
   },
   /*
    ** Build configuration
@@ -81,8 +81,8 @@ const config: Configuration = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    treeShake: true
-  }
-}
+    treeShake: true,
+  },
+};
 
-export default config
+export default config;

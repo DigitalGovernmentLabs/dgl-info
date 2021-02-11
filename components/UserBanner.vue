@@ -11,51 +11,53 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { UserInfo } from '$/types'
+import Vue from "vue";
+import { UserInfo } from "$/types";
 
 export default Vue.extend({
   data() {
     return {
       isLoggedIn: false,
       userInfo: {} as UserInfo,
-      token: ''
-    }
+      token: "",
+    };
   },
   methods: {
     async editIcon(e: { target: HTMLInputElement }) {
-      if (!e.target?.files?.length) return
+      if (!e.target?.files?.length) return;
 
       this.userInfo = await this.$api.user.$post({
         headers: { token: this.token },
-        body: { icon: e.target.files[0] }
-      })
+        body: { icon: e.target.files[0] },
+      });
     },
     async login() {
-      const id = prompt('Enter the user id (See .env)')
-      const pass = prompt('Enter the user pass (See .env)')
-      if (!id || !pass) return alert('Login failed')
+      const id = prompt("Enter the user id (See .env)");
+      const pass = prompt("Enter the user pass (See .env)");
+      if (!id || !pass) return alert("Login failed");
 
       try {
-        this.token = (await this.$api.token.$post({ body: { id, pass } })).token
+        this.token = (
+          await this.$api.token.$post({ body: { id, pass } })
+        ).token;
       } catch (e) {
-        return alert('Login failed')
+        return alert("Login failed");
       }
 
       this.userInfo = await this.$api.user.$get({
-        headers: { token: this.token }
-      })
-      this.isLoggedIn = true
+        headers: { token: this.token },
+      });
+      this.isLoggedIn = true;
     },
     async logout() {
       await this.$api.token.delete({
-        headers: { token: this.token }
-      })
-      this.token = ''
-      this.isLoggedIn = false
-    }
-  }
-})
+        headers: { token: this.token },
+      });
+      this.token = "";
+      this.isLoggedIn = false;
+    },
+  },
+});
 </script>
 
 <style scoped>

@@ -1,18 +1,18 @@
-import { ConnectionOptions } from 'typeorm'
-import dotenv from 'dotenv'
+import { ConnectionOptions } from "typeorm";
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
 const {
   TYPEORM_HOST,
   TYPEORM_USERNAME,
   TYPEORM_PASSWORD,
   TYPEORM_DATABASE,
-  TYPEORM_PORT
-} = process.env
+  TYPEORM_PORT,
+} = process.env;
 
 const options: ConnectionOptions = {
-  type: 'postgres',
+  type: "postgres",
   host: TYPEORM_HOST,
   username: TYPEORM_USERNAME,
   password: TYPEORM_PASSWORD,
@@ -20,11 +20,13 @@ const options: ConnectionOptions = {
   port: Number(TYPEORM_PORT),
   synchronize: false,
   logging: false,
-  entities: ['entity/**/*.ts'],
-  migrations: ['migration/**/*.ts'],
+  entities: ["entity/**/*.ts"],
+  migrations: ["migration/**/*.ts"],
   cli: {
-    migrationsDir: 'migration'
-  }
-}
+    migrationsDir: "migration",
+    subscribersDir: "subscriber",
+    entitiesDir: "entity",
+  },
+};
 
-export = options
+export = options;

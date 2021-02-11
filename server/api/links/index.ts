@@ -1,8 +1,8 @@
-import { PickLink } from '$/types'
+import { PickLink } from "$/types";
 
 export type Methods = {
   post: {
-    reqBody: { listId: number; pickLink: PickLink }
-    status: 204
-  }
-}
+    reqBody: { listId: number; pickLink: PickLink };
+    status: 204;
+  };
+};

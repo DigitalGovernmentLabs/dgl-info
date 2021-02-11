@@ -1,15 +1,15 @@
-import { MinLength, IsString } from 'class-validator'
+import { MinLength, IsString } from "class-validator";
 
 export class LoginBody {
   @MinLength(2)
-  id: string
+  id: string;
 
   @MinLength(4)
-  pass: string
+  pass: string;
 }
 
 export class TokenHeader {
   @IsString()
   @MinLength(10)
-  token: string
+  token: string;
 }
