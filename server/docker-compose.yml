@@ -4,8 +4,7 @@ services:
     image: postgres:13
     restart: always
     ports:
-      - $TYPEORM_PORT:5432
-    env_file: ./.env
+      - "$TYPEORM_PORT:5432"
     environment:
       POSTGRES_USER: $TYPEORM_USERNAME
       POSTGRES_DB: $TYPEORM_DATABASE
@@ -15,9 +14,8 @@ services:
 
   api:
     build: .
-    env_file: ./.env
     ports:
-      - 3000:$SERVER_PORT
+      - "3000:$API_SERVER_PORT"
     depends_on:
       - postgres
 
