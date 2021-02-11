@@ -26,6 +26,8 @@ module.exports = {
   plugins: [
     new NodemonPlugin({
       script: "./build/index.js",
+      watch: ["**/*.ts", ".env", "package.json", "yarn.lock"],
+      delay: "1000",
     }),
   ],
   resolve: {
