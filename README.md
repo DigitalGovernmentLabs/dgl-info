@@ -2,6 +2,7 @@
 
 ```bash
 yarn install
+yarn install:server
 yarn dev
 ```
 
