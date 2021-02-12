@@ -72,17 +72,19 @@ export default Vue.extend({
   },
   methods: {
     async fetchLinkLists() {
-      this.linkLists = await this.$api.linkLists.$get();
+      this.linkLists = await this.$api.normal.linkLists.$get();
     },
     async addListTitle() {
       if (!this.newTitle) return;
 
-      await this.$api.linkLists.post({ body: { listTitle: this.newTitle } });
+      await this.$api.normal.linkLists.post({
+        body: { listTitle: this.newTitle },
+      });
       this.newTitle = "";
       await this.fetchLinkLists();
     },
     async deleteLink(link: Link) {
-      await this.$api.links._linkId(link.linkId).delete();
+      await this.$api.normal.links._linkId(link.linkId).delete();
       await this.fetchLinkLists();
     },
   },
