@@ -1,11 +1,21 @@
 import { Plugin } from "@nuxt/types";
-import axios from "axios";
 import aspida from "@aspida/axios";
+import { NuxtAxiosInstance } from "@nuxtjs/axios";
 import api from "~/server/api/$api";
 
-const tmp = api(aspida(axios));
+const createInstance = (axios: NuxtAxiosInstance) =>
+  api(aspida(axios, { withCredentials: true }));
 
-type ApiInstance = typeof tmp;
+type ApiInstance = ReturnType<typeof createInstance>;
+
+declare module "@nuxt/types" {
+  interface Context {
+    $api: ApiInstance;
+  }
+  interface NuxtAppOptions {
+    $api: ApiInstance;
+  }
+}
 
 declare module "vue/types/vue" {
   interface Vue {
@@ -27,6 +37,6 @@ declare module "vuex/types/index" {
 }
 
 const plugin: Plugin = ({ $axios }, inject) =>
-  inject("api", api(aspida($axios)));
+  inject("api", createInstance($axios));
 
 export default plugin;
