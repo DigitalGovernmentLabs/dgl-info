@@ -11,5 +11,6 @@ declare namespace NodeJS {
     readonly API_SERVER_PORT?: string;
     readonly API_BASE_PATH?: string;
     readonly API_COOKIE_SECRET?: string;
+    readonly FIRST_ROOT_PASSWORD?: string;
   }
 }

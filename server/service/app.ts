@@ -1,30 +1,56 @@
-import path from "path";
 import assert from "assert";
 import Fastify from "fastify";
 import helmet from "fastify-helmet";
 import cors from "fastify-cors";
-import fastifyStatic from "fastify-static";
-import fastifyCookie from "fastify-cookie";
+import cookie from "fastify-cookie";
 import server from "$/$server";
+import auth from "$/fastify-plugins/auth";
+import { logger } from "$/service/logger";
 
 export const init = () => {
-  const fastify = Fastify();
-  const { CORS_ORIGIN, API_BASE_PATH, API_COOKIE_SECRET } = process.env;
-  assert(CORS_ORIGIN, "CORS_ORIGIN");
+  const fastify = Fastify({
+    logger,
+  });
+  const {
+    CORS_ORIGIN,
+    API_BASE_PATH,
+    API_COOKIE_SECRET,
+    API_JWT_SECRET,
+  } = process.env;
   assert(API_BASE_PATH, "API_BASE_PATH");
   assert(API_COOKIE_SECRET, "API_COOKIE_SECRET");
+  assert(API_JWT_SECRET, "API_JWT_SECRET");
 
   void fastify.register(helmet);
   void fastify.register(cors, {
-    origin: CORS_ORIGIN,
+    origin: process.env.NODE_ENV === "development" ? true : CORS_ORIGIN,
+    credentials: true,
   });
-  void fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "public"),
-    prefix: API_BASE_PATH,
-  });
-  void fastify.register(fastifyCookie, {
+  void fastify.register(cookie, {
     secret: API_COOKIE_SECRET,
   });
+  void fastify.register(auth, {
+    secret: API_JWT_SECRET,
+  });
+
+  fastify.route({
+    url: "/_healthcheck",
+    method: "GET",
+    schema: {
+      response: {
+        200: {
+          type: "object",
+          properties: { status: { type: "string" } },
+
+          required: ["status"],
+        },
+      },
+    },
+    handler: async (_req, reply) => {
+      await reply.code(200).send({ status: "ok" });
+    },
+  });
+
   server(fastify, { basePath: API_BASE_PATH });
   return fastify;
 };
