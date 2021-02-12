@@ -34,3 +34,4 @@ jobs:
       - run: yarn install:server --frozen-lockfile
       - run: yarn lint
       - run: yarn typecheck
+      - run: yarn build
