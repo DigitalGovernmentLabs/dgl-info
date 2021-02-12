@@ -37,7 +37,10 @@ const config: Configuration = {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ["~/plugins/api"],
+  plugins: [
+    { src: "~/plugins/api", mode: "client" },
+    { src: "~/plugins/auth", mode: "client" },
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
