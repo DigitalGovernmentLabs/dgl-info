@@ -7,7 +7,7 @@ const NodemonPlugin = require("nodemon-webpack-plugin");
 module.exports = {
   externals: [nodeExternals()],
   entry: {
-    index: "./entrypoints/index.ts",
+    api: "./entrypoints/api/index.ts",
   },
   target: "node",
   node: {
@@ -25,8 +25,8 @@ module.exports = {
   },
   plugins: [
     new NodemonPlugin({
-      script: "./build/index.js",
-      watch: ["**/*.ts", ".env", "package.json", "yarn.lock"],
+      script: "./build/api.js",
+      watch: ["./build/api.js", ".env", "yarn.lock"],
       delay: "1000",
     }),
   ],
