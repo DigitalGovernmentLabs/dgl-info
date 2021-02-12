@@ -13,8 +13,8 @@ module.exports = {
   ],
   plugins: ["prettier"],
   rules: {
-    complexity: ["error", 4],
-    "max-depth": ["error", 1],
+    complexity: ["error", 6],
+    "max-depth": ["error", 3],
     "max-nested-callbacks": ["error", 2],
     "max-lines": ["error", 200],
     "no-console": "error",
