@@ -32,8 +32,7 @@
     "start": "run-p start:*",
     "start:client": "nuxt-ts serve",
     "start:server": "npm start --prefix server",
-    "preinstall": "npx only-allow yarn",
-    "postinstall": "npm run install:server"
+    "preinstall": "npx only-allow yarn"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint",
