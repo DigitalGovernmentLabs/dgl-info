@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <user-banner />
-  </div>
+  <div class="container"></div>
 </template>
 
 <script lang="ts">

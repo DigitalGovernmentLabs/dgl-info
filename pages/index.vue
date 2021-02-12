@@ -1,34 +1,6 @@
 <template>
   <div class="container">
-    <user-banner />
-    <div>
-      <logo />
-      <h1 class="title">frourio-todo-app</h1>
-      <div v-if="!$fetchState.pending">
-        <form @submit.prevent="createTask">
-          <input v-model="newLabel" type="text" />
-          <input type="submit" value="ADD" />
-        </form>
-        <ul class="tasks">
-          <li v-for="task in tasks" :key="task.id">
-            <label>
-              <input
-                type="checkbox"
-                :checked="task.done"
-                @change="toggleDone(task)"
-              />
-              <span>{{ task.label }}</span>
-            </label>
-            <input
-              type="button"
-              value="DELETE"
-              style="float: right"
-              @click="remove(task)"
-            />
-          </li>
-        </ul>
-      </div>
-    </div>
+    <div>hi</div>
   </div>
 </template>
 
@@ -42,31 +14,6 @@ export default Vue.extend({
       tasks: [] as Task[],
       newLabel: "",
     };
-  },
-  async fetch() {
-    await this.fetchTasks();
-  },
-  methods: {
-    async fetchTasks() {
-      this.tasks = await this.$api.tasks.$get();
-    },
-    async createTask() {
-      if (!this.newLabel) return;
-
-      await this.$api.tasks.post({ body: { label: this.newLabel } });
-      this.newLabel = "";
-      await this.fetchTasks();
-    },
-    async toggleDone(task: Task) {
-      await this.$api.tasks
-        ._taskId(task.id)
-        .patch({ body: { done: !task.done } });
-      await this.fetchTasks();
-    },
-    async remove(task: Task) {
-      await this.$api.tasks._taskId(task.id).delete();
-      await this.fetchTasks();
-    },
   },
 });
 </script>
