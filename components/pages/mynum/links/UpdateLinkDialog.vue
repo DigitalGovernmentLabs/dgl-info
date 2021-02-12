@@ -68,7 +68,7 @@ export default Vue.extend({
   methods: {
     async updateLink() {
       this.dialog = false;
-      await this.$api.links
+      await this.$api.normal.links
         ._linkId(this.link.linkId)
         .patch({ body: this.updatedLink });
       this.$emit("refetch");

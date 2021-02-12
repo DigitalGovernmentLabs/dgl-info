@@ -61,7 +61,7 @@ export default Vue.extend({
   },
   methods: {
     async addListTitle() {
-      await this.$api.links.post({
+      await this.$api.normal.links.post({
         body: { listId: this.linkList.listId, pickLink: this.newLink },
       });
       this.dialog = false;
