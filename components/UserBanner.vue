@@ -1,60 +1,55 @@
 <template>
-  <div class="user-banner">
-    <div v-if="isLoggedIn">
-      <img :src="userInfo.icon" class="user-icon" />
-      <span>{{ userInfo.name }}</span>
-      <input type="file" accept="image/*" @change="editIcon" />
-      <button @click="logout">LOGOUT</button>
+  <v-app-bar app>
+    <v-toolbar-title>DGL</v-toolbar-title>
+    <v-spacer />
+    <div v-if="user">
+      <span>{{ user.name }}</span>
+      <v-btn @click="logout"> LOGOUT </v-btn>
     </div>
-    <button v-else @click="login">LOGIN</button>
-  </div>
+    <div v-else>
+      <v-btn @click="login"> LOGIN </v-btn>
+    </div>
+    <template #extension>
+      <v-tabs>
+        <v-tab>ホーム</v-tab>
+        <v-tab>法</v-tab>
+        <v-tab>別表1</v-tab>
+        <v-tab>別表1省令</v-tab>
+        <v-tab>別表2</v-tab>
+        <v-tab>別表2省令</v-tab>
+        <v-tab>FAQ</v-tab>
+        <v-tab>LINK</v-tab>
+        <v-tab if="user?.isAdmin">ユーザ管理</v-tab>
+      </v-tabs>
+    </template>
+  </v-app-bar>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { UserInfo } from "$/types";
+import { UserJwtPayload } from "~/server/types/user";
 
 export default Vue.extend({
   data() {
     return {
-      isLoggedIn: false,
-      userInfo: {} as UserInfo,
-      token: "",
+      user: null as UserJwtPayload | null,
     };
   },
+  async fetch() {
+    this.user = await this.$auth.refetch();
+  },
   methods: {
-    async editIcon(e: { target: HTMLInputElement }) {
-      if (!e.target?.files?.length) return;
-
-      this.userInfo = await this.$api.user.$post({
-        headers: { token: this.token },
-        body: { icon: e.target.files[0] },
-      });
-    },
-    async login() {
-      const id = prompt("Enter the user id (See .env)");
-      const pass = prompt("Enter the user pass (See .env)");
-      if (!id || !pass) return alert("Login failed");
-
-      try {
-        this.token = (
-          await this.$api.token.$post({ body: { id, pass } })
-        ).token;
-      } catch (e) {
-        return alert("Login failed");
-      }
-
-      this.userInfo = await this.$api.user.$get({
-        headers: { token: this.token },
-      });
-      this.isLoggedIn = true;
+    async refresh() {
+      const user = await this.$auth.get();
+      this.user = user;
     },
     async logout() {
-      await this.$api.token.delete({
-        headers: { token: this.token },
-      });
-      this.token = "";
-      this.isLoggedIn = false;
+      this.user = null;
+      await this.$auth.logout();
+      await this.refresh();
+    },
+    login() {
+      this.$router.push("/login");
     },
   },
 });

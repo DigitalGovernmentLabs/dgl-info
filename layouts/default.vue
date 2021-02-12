@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <nuxt />
+    <user-banner />
+    <v-content app>
+      <nuxt />
+    </v-content>
   </v-app>
 </template>
 
