@@ -98,7 +98,7 @@ export default Vue.extend({
         await this.$auth.login(this.name, this.password);
         if (!(await this.authCheck())) {
           this.resultError =
-            "クッキーへの保存に失敗しました。使用している設定を確認してください。";
+            "クッキーへの保存に失敗しました。使用しているブラウザの設定等を確認してください。";
         }
       } catch (e: unknown) {
         this.handleError(e);
