@@ -2,10 +2,10 @@ import { Context, Plugin } from "@nuxt/types";
 import { UserJwtPayload } from "$/types/user";
 
 const createAuthInstance = (ctx: Context) => {
-  let user: Promise<UserJwtPayload | null> = Promise.resolve(null);
+  let user: Promise<UserJwtPayload | null> | null = null;
   const refetch = () =>
     (user = ctx.$api.public.auth.get().then((res) => res.body.user));
-  const get = () => user;
+  const get = () => (user === null ? refetch() : user);
   const login = async (name: string, password: string) => {
     await ctx.$api.public.auth.post({
       body: {
