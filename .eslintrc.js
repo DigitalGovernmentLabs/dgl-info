@@ -13,10 +13,19 @@ module.exports = {
   ],
   plugins: ["prettier"],
   rules: {
-    complexity: ["error", 6],
+    complexity: ["error", 8],
     "max-depth": ["error", 3],
     "max-nested-callbacks": ["error", 2],
     "max-lines": ["error", 200],
+    // code の max-len は prettier にまかせる。
+    "max-len": [
+      "error",
+      {
+        code: 300,
+        comments: 80,
+        ignoreUrls: true,
+      },
+    ],
     "no-console": "error",
     "prefer-template": "error",
     "no-void": ["error", { allowAsStatement: true }],

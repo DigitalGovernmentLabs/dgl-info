@@ -11,15 +11,17 @@
     </div>
     <template #extension>
       <v-tabs>
-        <v-tab>ホーム</v-tab>
-        <v-tab>法</v-tab>
-        <v-tab>別表1</v-tab>
-        <v-tab>別表1省令</v-tab>
-        <v-tab>別表2</v-tab>
-        <v-tab>別表2省令</v-tab>
-        <v-tab>FAQ</v-tab>
-        <v-tab>LINK</v-tab>
-        <v-tab if="user?.isAdmin">ユーザ管理</v-tab>
+        <v-tab nuxt to="/">ホーム</v-tab>
+        <v-tab nuxt to="/">法</v-tab>
+        <v-tab nuxt to="/">別表1</v-tab>
+        <v-tab nuxt to="/">別表1省令</v-tab>
+        <v-tab nuxt to="/">別表2</v-tab>
+        <v-tab nuxt to="/">別表2省令</v-tab>
+        <v-tab nuxt to="/faq">FAQ</v-tab>
+        <v-tab nuxt to="/links">LINK</v-tab>
+        <v-tab v-if="user && user.isAdmin" nuxt to="/admin/users"
+          >ユーザ管理</v-tab
+        >
       </v-tabs>
     </template>
   </v-app-bar>
@@ -36,7 +38,7 @@ export default Vue.extend({
     };
   },
   async fetch() {
-    this.user = await this.$auth.refetch();
+    this.user = await this.$auth.get();
   },
   methods: {
     async refresh() {
