@@ -34,5 +34,5 @@ jobs:
           git config --global user.name "gh-actions"
           yarn install --frozen-lockfile
           echo "${{ secrets.SERVER_ENV }}" > server/.env
-          yarn build:cilent
+          yarn build:client
           npx push-dir --dir=dist --branch=gh-pages --cleanup
