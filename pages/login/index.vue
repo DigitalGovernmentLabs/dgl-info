@@ -16,36 +16,12 @@
                     :rules="[rules.required]"
                     hide-details="auto"
                   ></v-text-field>
-                  <v-text-field
-                    v-model="password"
-                    label="パスワード"
-                    :rules="[rules.required]"
-                    :type="showPassword ? 'text' : 'password'"
-                    hide-details="auto"
-                  >
-                    <template #append>
-                      <v-btn
-                        tabindex="-1"
-                        icon
-                        @mousedown="showPassword = true"
-                        @mouseup="showPassword = false"
-                        @mouseleave="showPassword = false"
-                      >
-                        <v-icon>
-                          {{ showPassword ? "mdi-eye-off" : "mdi-eye" }}
-                        </v-icon></v-btn
-                      >
-                    </template>
-                  </v-text-field>
+                  <password-field v-model="password" required-only />
                 </v-col>
               </v-row>
               <v-row>
                 <v-col>
-                  <div
-                    class="text-caption text-right font-weight-light red--text"
-                  >
-                    {{ resultError }}
-                  </div>
+                  <form-error :message="resultError" />
                 </v-col>
               </v-row>
               <v-row justify="end">
@@ -63,7 +39,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { isAxiosError } from "~/utils/axios";
+import { handleError } from "~/utils/axios";
+import { rules } from "~/server/service/form";
 
 export default Vue.extend({
   layout: "slim",
@@ -72,11 +49,8 @@ export default Vue.extend({
       name: "",
       password: "",
       resultError: "",
-      showPassword: false,
       processing: false,
-      rules: {
-        required: (value: string) => Boolean(value) || "入力してください。",
-      },
+      rules,
     };
   },
   methods: {
@@ -101,24 +75,9 @@ export default Vue.extend({
             "クッキーへの保存に失敗しました。使用しているブラウザの設定等を確認してください。";
         }
       } catch (e: unknown) {
-        this.handleError(e);
+        this.resultError = handleError(e);
       } finally {
         this.processing = false;
-      }
-    },
-    handleError(e: unknown) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      this.resultError = "予期せぬエラーが発生。";
-      if (isAxiosError(e)) {
-        const status = e.response?.status;
-        if (status === 400) {
-          this.resultError = "ユーザ名もしくはパスワードが間違っています。";
-        } else if (status === 500) {
-          this.resultError = "サーバーエラーが発生。";
-        } else {
-          this.resultError = "通信エラーが発生。";
-        }
       }
     },
   },
