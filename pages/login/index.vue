@@ -73,6 +73,10 @@ export default Vue.extend({
         if (!(await this.authCheck())) {
           this.resultError =
             "クッキーへの保存に失敗しました。使用しているブラウザの設定等を確認してください。";
+          if (process.env.NODE_ENV === "development") {
+            this.resultError +=
+              "開発用の環境の場合は、 localhost ではなく 127.0.0.1 でのアクセスを試してください。";
+          }
         }
       } catch (e: unknown) {
         this.resultError = handleError(e);
