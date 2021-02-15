@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
-    <template v-slot:activator="{ on, attrs }">
+    <template #activator="{ on, attrs }">
       <v-btn text v-bind="attrs" v-on="on">変更</v-btn>
     </template>
     <v-card>
@@ -39,19 +39,19 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from 'vue'
-import { LinkList, Link } from '~/server/types'
+import Vue, { PropOptions } from "vue";
+import { LinkList, Link } from "~/server/types";
 
 export default Vue.extend({
   props: {
     linkList: {
       type: Object,
-      required: true
+      required: true,
     } as PropOptions<LinkList>,
     link: {
       type: Object,
-      required: true
-    } as PropOptions<Link>
+      required: true,
+    } as PropOptions<Link>,
   },
   data() {
     return {
@@ -61,18 +61,18 @@ export default Vue.extend({
         linkOrder: this.link.linkOrder,
         url: this.link.url,
         name: this.link.name,
-        description: this.link.description
-      } as Link
-    }
+        description: this.link.description,
+      } as Link,
+    };
   },
   methods: {
     async updateLink() {
-      this.dialog = false
-      await this.$api.links
+      this.dialog = false;
+      await this.$api.normal.links
         ._linkId(this.link.linkId)
-        .patch({ body: this.updatedLink })
-      this.$emit('refetch')
-    }
-  }
-})
+        .patch({ body: this.updatedLink });
+      this.$emit("refetch");
+    },
+  },
+});
 </script>

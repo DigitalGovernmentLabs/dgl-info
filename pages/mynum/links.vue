@@ -57,36 +57,38 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { LinkList, Link } from '~/server/types'
+import Vue from "vue";
+import { LinkList, Link } from "~/server/types";
 
 export default Vue.extend({
-  async fetch() {
-    await this.fetchLinkLists()
-  },
   data() {
     return {
       linkLists: [] as LinkList[],
-      newTitle: ''
-    }
+      newTitle: "",
+    };
+  },
+  async fetch() {
+    await this.fetchLinkLists();
   },
   methods: {
     async fetchLinkLists() {
-      this.linkLists = await this.$api.linkLists.$get()
+      this.linkLists = await this.$api.normal.linkLists.$get();
     },
     async addListTitle() {
-      if (!this.newTitle) return
+      if (!this.newTitle) return;
 
-      await this.$api.linkLists.post({ body: { listTitle: this.newTitle } })
-      this.newTitle = ''
-      await this.fetchLinkLists()
+      await this.$api.normal.linkLists.post({
+        body: { listTitle: this.newTitle },
+      });
+      this.newTitle = "";
+      await this.fetchLinkLists();
     },
     async deleteLink(link: Link) {
-      await this.$api.links._linkId(link.linkId).delete()
-      await this.fetchLinkLists()
-    }
-  }
-})
+      await this.$api.normal.links._linkId(link.linkId).delete();
+      await this.fetchLinkLists();
+    },
+  },
+});
 </script>
 
 <style scoped>
@@ -100,8 +102,8 @@ export default Vue.extend({
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;

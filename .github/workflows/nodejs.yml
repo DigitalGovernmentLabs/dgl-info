@@ -32,5 +32,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn --frozen-lockfile
       - run: yarn install:server --frozen-lockfile
+      - run: yarn generate
       - run: yarn lint
       - run: yarn typecheck
+      - run: yarn build

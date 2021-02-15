@@ -3,31 +3,31 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  JoinColumn
-} from 'typeorm'
-import { LinkList } from './LinkList'
+  JoinColumn,
+} from "typeorm";
+import { LinkList } from "./LinkList";
 
 @Entity()
 export class Link {
   @PrimaryGeneratedColumn()
-  linkId: number
+  linkId: number;
 
   @Column()
-  linkOrder: number
+  linkOrder: number;
 
   @Column()
-  url: string
+  url: string;
 
   @Column()
-  name: string
+  name: string;
 
   @Column()
-  description?: string
+  description?: string;
 
   @Column()
-  readonly listId: number
+  readonly listId: number;
 
   @ManyToOne(() => LinkList, (linkList) => linkList.listId)
-  @JoinColumn({ name: 'listId' })
-  readonly linkList?: LinkList
+  @JoinColumn({ name: "listId" })
+  readonly linkList?: LinkList;
 }

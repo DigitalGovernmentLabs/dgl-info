@@ -1,14 +1,19 @@
 # dgl-info
 
-## Build Setup
-
 ```bash
-# install dependencies
-$ yarn install
-$ yarn install:server
-
-# serve with hot reload at localhost:3000
-$ yarn dev
+yarn install
+yarn install:server
+yarn dev
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Development
+
+- client: [http://127.0.0.1:41441](http://127.0.0.1:41441)
+- server: Port `API_SERVER_PORT` is used.
+
+### Check fastify logging
+
+```
+tail -f ./server/error.log
+tail -f ./server/combined.log
+```
