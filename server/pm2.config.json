@@ -1,6 +1,6 @@
 {
   "name": "dgl-info",
-  "script": "build/index.js",
+  "script": "build/api.js",
   "env_production": {
     "NODE_ENV": "production"
   }
