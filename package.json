@@ -8,7 +8,7 @@
     "dev:server": "npm run dev --prefix server",
     "dev:aspida": "aspida --watch",
     "build": "run-p build:client build:server",
-    "prebuild:client": "npm run generate",
+    "prebuild:client": "run-s generate:aspida",
     "build:client": "nuxt-ts generate",
     "build:server": "npm run build --prefix server",
     "generate": "run-p generate:*",
