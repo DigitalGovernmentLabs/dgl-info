@@ -127,7 +127,7 @@ resource aws_instance dgl_instance {
       "echo \"${var.ssl_certificate_key}\" | sudo tee /etc/ssl/${var.tags.Name}.key > /dev/null",
       "sudo touch /etc/nginx/nginx.conf",
       <<EOF
-cat <<EOT | sudo tee /etc/nginx/nginx.conf >/dev/null
+cat <<'EOT' | sudo tee /etc/nginx/nginx.conf >/dev/null
 user nginx;
 worker_processes auto;
 error_log /var/log/nginx/error.log;
@@ -163,6 +163,7 @@ http {
         }
     }
 }
+EOT
 EOF
 ,
       "sudo systemctl start nginx.service"
