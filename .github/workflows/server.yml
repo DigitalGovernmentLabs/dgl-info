@@ -55,7 +55,9 @@ jobs:
           ssh dgl.jp <<EOC
           cd dgl-info/server
           git pull origin master
-          echo "${{ secrets.SERVER_ENV }}" > .env
+          cat <<END_OF_SERVER_ENV > .env
+          ${{ secrets.SERVER_ENV }}
+          END_OF_SERVER_ENV
           docker-compose build
           docker-compose down
           docker-compose up -d
