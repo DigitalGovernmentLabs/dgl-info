@@ -15,9 +15,12 @@ services:
   api:
     build: .
     ports:
-      - "3000:$API_SERVER_PORT"
+      - "$API_SERVER_PORT:$API_SERVER_PORT"
     depends_on:
       - postgres
+    environment:
+      TYPEORM_HOST: postgres
+      TYPEORM_PORT: 5432
 
 volumes:
   pg_data:
