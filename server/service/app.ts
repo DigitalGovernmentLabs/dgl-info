@@ -17,13 +17,12 @@ export const init = () => {
     API_COOKIE_SECRET,
     API_JWT_SECRET,
   } = process.env;
-  assert(API_BASE_PATH, "API_BASE_PATH");
   assert(API_COOKIE_SECRET, "API_COOKIE_SECRET");
   assert(API_JWT_SECRET, "API_JWT_SECRET");
 
   void fastify.register(helmet);
   void fastify.register(cors, {
-    origin: process.env.NODE_ENV === "development" ? true : CORS_ORIGIN,
+    origin: !CORS_ORIGIN ? false : CORS_ORIGIN === "true" ? true : CORS_ORIGIN,
     credentials: true,
   });
   void fastify.register(cookie, {
