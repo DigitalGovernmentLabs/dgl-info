@@ -121,10 +121,13 @@ resource aws_instance dgl_instance {
       # "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000",
       "git clone https://github.com/DigitalGovernmentLabs/dgl-info.git",
       "sudo amazon-linux-extras install nginx1 -y",
-      "sudo echo \"${var.ssl_certificate}\" > /etc/ssl/${var.tags.Name}.pem",
-      "sudo echo \"${var.ssl_certificate_key}\" > /etc/ssl/${var.tags.Name}.key",
+      "sudo touch /etc/ssl/${var.tags.Name}.pem",
+      "echo \"${var.ssl_certificate}\" | sudo tee /etc/ssl/${var.tags.Name}.pem > /dev/null",
+      "sudo touch /etc/ssl/${var.tags.Name}.key",
+      "echo \"${var.ssl_certificate_key}\" | sudo tee /etc/ssl/${var.tags.Name}.key > /dev/null",
+      "sudo touch /etc/nginx/nginx.conf",
       <<EOF
-sudo cat <<EOT > /etc/nginx/nginx.conf
+cat <<EOT | sudo tee /etc/nginx/nginx.conf >/dev/null
 user nginx;
 worker_processes auto;
 error_log /var/log/nginx/error.log;
