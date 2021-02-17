@@ -99,3 +99,5 @@ server/build/
 *.tfstate
 *.tfstate.*
 *.tfvars
+*.tfbackend
+.terraform.lock.hcl
