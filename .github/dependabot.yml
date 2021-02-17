@@ -5,22 +5,22 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: "weekly"
-    target-branch: "develop"
+      interval: "daily"
+    target-branch: "master"
     versioning-strategy: "increase"
     commit-message:
-      prefix: "fix"
-      prefix-development: "chore"
+      prefix: "chore"
+      include_scope: true
 
   - package-ecosystem: "npm"
     directory: "/server"
     schedule:
-      interval: "weekly"
-    target-branch: "develop"
+      interval: "daily"
+    target-branch: "master"
     versioning-strategy: "increase"
     commit-message:
-      prefix: "fix"
-      prefix-development: "chore"
+      prefix: "chore"
+      include_scope: true
