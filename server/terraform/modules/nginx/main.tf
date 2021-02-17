@@ -28,20 +28,22 @@ resource "sshcommand_command" "nginx_conf" {
   host        = var.host
   private_key = var.private_key
   command     = <<END_OF_COMMAND
-cat <<END_OF_SHELL | bash
-set -euxo pipefail
-sudo amazon-linux-extras install nginx1 -y
-exoprt NGINX_SSL_NAME=${var.ssl_name}
-
-cat <<END_OF_NGINX_TEMPLATE > nginx-template.sh
-${file("${path.module}/nginx-template.sh")}
-END_OF_NGINX_TEMPLATE
-
-sh nginx-template.sh > stage.nginx.conf
-
-nginx -t -c "$(pwd)/stage.nginx.conf"
-sudo cp stage.nginx.conf /etc/nginx/nginx.conf
-sudo systemctl reload nginx.service
-END_OF_SHELL
+echo debug
 END_OF_COMMAND
 }
+
+# cat <<END_OF_SHELL | bash
+# set -euxo pipefail
+# sudo amazon-linux-extras install nginx1 -y
+# exoprt NGINX_SSL_NAME=${var.ssl_name}
+#
+# cat <<END_OF_NGINX_TEMPLATE > nginx-template.sh
+# ${file("${path.module}/nginx-template.sh")}
+# END_OF_NGINX_TEMPLATE
+#
+# sh nginx-template.sh > stage.nginx.conf
+#
+# nginx -t -c "$(pwd)/stage.nginx.conf"
+# sudo cp stage.nginx.conf /etc/nginx/nginx.conf
+# sudo systemctl reload nginx.service
+# END_OF_SHELL
