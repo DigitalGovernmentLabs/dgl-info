@@ -136,6 +136,7 @@ module "nginx" {
   user        = "ec2-user"
   host        = aws_instance.dgl_instance.public_ip
   private_key = var.private_key
+  ssl_name    = var.tags.Name
 }
 
 resource "aws_eip" "dgl_eip" {
