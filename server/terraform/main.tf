@@ -1,33 +1,33 @@
-variable public_key {}
-variable private_key {}
-variable ssl_certificate {}
-variable ssl_certificate_key {}
-variable tags {
+variable "public_key" {}
+variable "private_key" {}
+variable "ssl_certificate" {}
+variable "ssl_certificate_key" {}
+variable "tags" {
   default = {
     Name = "dgl.jp"
   }
 }
 
-resource aws_vpc dgl_vpc {
-  cidr_block = "10.0.0.0/16"
-  enable_dns_support = true
+resource "aws_vpc" "dgl_vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
   enable_dns_hostnames = true
-  tags = var.tags
+  tags                 = var.tags
 }
 
-resource aws_internet_gateway dgl_gw {
+resource "aws_internet_gateway" "dgl_gw" {
   vpc_id = aws_vpc.dgl_vpc.id
-  tags = var.tags
+  tags   = var.tags
 }
 
-resource aws_subnet dgl_subnet {
-  vpc_id = aws_vpc.dgl_vpc.id
-  cidr_block = "10.0.1.0/24"
+resource "aws_subnet" "dgl_subnet" {
+  vpc_id            = aws_vpc.dgl_vpc.id
+  cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-northeast-1a"
-  tags = var.tags
+  tags              = var.tags
 }
 
-resource aws_route_table dgl_route {
+resource "aws_route_table" "dgl_route" {
   vpc_id = aws_vpc.dgl_vpc.id
   route {
     cidr_block = "0.0.0.0/0"
@@ -36,78 +36,78 @@ resource aws_route_table dgl_route {
   tags = var.tags
 }
 
-resource aws_route_table_association dgl_association {
-  subnet_id = aws_subnet.dgl_subnet.id
+resource "aws_route_table_association" "dgl_association" {
+  subnet_id      = aws_subnet.dgl_subnet.id
   route_table_id = aws_route_table.dgl_route.id
 }
 
-resource aws_security_group dgl_sec {
-  name = "${var.tags.Name} admin"
+resource "aws_security_group" "dgl_sec" {
+  name        = "${var.tags.Name} admin"
   description = "Allow SSH and HTTP traffic"
-  vpc_id = aws_vpc.dgl_vpc.id
+  vpc_id      = aws_vpc.dgl_vpc.id
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = -1
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = var.tags
 }
 
-resource aws_security_group_rule dgl_inbound_ssh {
-  type = "ingress"
-  from_port = 22
-  to_port = 22
-  protocol = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+resource "aws_security_group_rule" "dgl_inbound_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.dgl_sec.id
 }
 
-resource aws_security_group_rule dgl_inbound_https {
-  type = "ingress"
-  from_port = 443
-  to_port = 443
-  protocol = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
+resource "aws_security_group_rule" "dgl_inbound_https" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.dgl_sec.id
 }
 
-data aws_ssm_parameter amzn2_ami {
+data "aws_ssm_parameter" "amzn2_ami" {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
-resource aws_key_pair auth {
-  key_name = var.tags.Name
+resource "aws_key_pair" "auth" {
+  key_name   = var.tags.Name
   public_key = var.public_key
-  tags = var.tags
+  tags       = var.tags
 }
 
-resource aws_ebs_snapshot ebs_snapshot {
+resource "aws_ebs_snapshot" "ebs_snapshot" {
   volume_id = aws_instance.dgl_instance.root_block_device.0.volume_id
-  tags = var.tags
+  tags      = var.tags
 }
 
-resource aws_instance dgl_instance {
-  ami = data.aws_ssm_parameter.amzn2_ami.value
+resource "aws_instance" "dgl_instance" {
+  ami           = data.aws_ssm_parameter.amzn2_ami.value
   instance_type = "t3a.micro"
-  key_name = aws_key_pair.auth.id
+  key_name      = aws_key_pair.auth.id
   vpc_security_group_ids = [
     aws_security_group.dgl_sec.id
   ]
-  subnet_id = aws_subnet.dgl_subnet.id
+  subnet_id                   = aws_subnet.dgl_subnet.id
   associate_public_ip_address = true
   root_block_device {
-    volume_type = "gp2"
-    volume_size = 10
+    volume_type           = "gp2"
+    volume_size           = 10
     delete_on_termination = false
   }
-  tags = var.tags
+  tags        = var.tags
   volume_tags = var.tags
 
-  provisioner remote-exec {
+  provisioner "remote-exec" {
     connection {
-      user = "ec2-user"
-      host = self.public_ip
+      user        = "ec2-user"
+      host        = self.public_ip
       private_key = var.private_key
     }
     inline = [
@@ -165,14 +165,14 @@ http {
 }
 EOT
 EOF
-,
+      ,
       "sudo systemctl start nginx.service"
     ]
   }
 }
 
-resource aws_eip dgl_eip {
+resource "aws_eip" "dgl_eip" {
   instance = aws_instance.dgl_instance.id
-  vpc = true
-  tags = var.tags
+  vpc      = true
+  tags     = var.tags
 }
