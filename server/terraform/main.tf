@@ -126,49 +126,16 @@ resource "aws_instance" "dgl_instance" {
       "sudo touch /etc/ssl/${var.tags.Name}.key",
       "echo \"${var.ssl_certificate_key}\" | sudo tee /etc/ssl/${var.tags.Name}.key > /dev/null",
       "sudo touch /etc/nginx/nginx.conf",
-      <<EOF
-cat <<'EOT' | sudo tee /etc/nginx/nginx.conf >/dev/null
-user nginx;
-worker_processes auto;
-error_log /var/log/nginx/error.log;
-pid /run/nginx.pid;
-include /usr/share/nginx/modules/*.conf;
-
-events {
-    worker_connections 1024;
-}
-
-http {
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    access_log  /var/log/nginx/access.log  main;
-
-    sendfile            on;
-    tcp_nopush          on;
-    tcp_nodelay         on;
-    keepalive_timeout   65;
-    types_hash_max_size 4096;
-
-    include             /etc/nginx/mime.types;
-    default_type        application/octet-stream;
-
-    server {
-        listen 443 ssl;
-        ssl_certificate /etc/ssl/${var.tags.Name}.pem;
-        ssl_certificate_key /etc/ssl/${var.tags.Name}.key;
-        location / {
-            proxy_pass http://127.0.0.1:3000;
-        }
-    }
-}
-EOT
-EOF
-      ,
-      "sudo systemctl start nginx.service"
     ]
   }
+}
+
+module "nginx" {
+  source = "./modules/nginx"
+
+  user        = "ec2-user"
+  host        = aws_instance.dgl_instance.public_ip
+  private_key = var.private_key
 }
 
 resource "aws_eip" "dgl_eip" {
