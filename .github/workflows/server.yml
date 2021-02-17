@@ -37,7 +37,10 @@ jobs:
         working-directory: server/terraform
         if: github.event_name == 'pull_request'
       - uses: actions/github-script@v3
-        if: github.event_name == 'pull_request'
+        if: <
+          github.event_name == 'pull_request'
+          && github.actor != 'dependabot[bot]'
+          && github.actor != 'dependabot-preview[bot]'
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
         with:
