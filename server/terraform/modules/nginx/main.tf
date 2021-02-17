@@ -39,7 +39,7 @@ END_OF_NGINX_TEMPLATE
 
 sh nginx-template.sh > stage.nginx.conf
 
-nginx -t -c stage.nginx.conf
+nginx -t -c "$(pwd)/stage.nginx.conf"
 sudo cp stage.nginx.conf /etc/nginx/nginx.conf
 sudo systemctl reload nginx.service
 END_OF_SHELL
