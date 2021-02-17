@@ -28,7 +28,7 @@ resource "sshcommand_command" "nginx_conf" {
   host        = var.host
   private_key = var.private_key
   command     = <<END_OF_COMMAND
-cat <<END_OF_SHELL | sh
+cat <<END_OF_SHELL | bash
 set -euxo pipefail
 sudo amazon-linux-extras install nginx1 -y
 exoprt NGINX_SSL_NAME=${var.ssl_name}
