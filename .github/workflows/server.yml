@@ -26,6 +26,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 0.13.6
+      - run: terraform 0.13upgrade -yes
+        working-directory: server/terraform
       - id: init
         run: terraform init
         working-directory: server/terraform
