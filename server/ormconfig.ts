@@ -18,6 +18,7 @@ const options: ConnectionOptions = {
   password: TYPEORM_PASSWORD,
   database: TYPEORM_DATABASE,
   port: Number(TYPEORM_PORT),
+  migrationsRun: true,
   synchronize: false,
   logging: false,
   entities: ["entity/**/*.ts"],
