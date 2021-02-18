@@ -139,6 +139,10 @@ module "nginx" {
   ssl_name    = var.tags.Name
 }
 
+output "nginx_result" {
+  value = module.nginx.result
+}
+
 resource "aws_eip" "dgl_eip" {
   instance = aws_instance.dgl_instance.id
   vpc      = true

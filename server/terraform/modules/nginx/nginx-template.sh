@@ -3,16 +3,16 @@ set -euxo pipefail
 test -n "$NGINX_SSL_NAME"
 
 logging() {
-  cat <<'EOF'
+  cat <<'END_OF_LOGGING'
     log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log  /var/log/nginx/access.log  main;
-EOF
+END_OF_LOGGING
 }
 
-cat <<EOF
+cat <<END_OF_NGINX_CONF
 worker_processes auto;
 error_log /var/log/nginx/error.log;
 pid /run/nginx.pid;
@@ -43,4 +43,4 @@ http {
         }
     }
 }
-EOF
+END_OF_NGINX_CONF
