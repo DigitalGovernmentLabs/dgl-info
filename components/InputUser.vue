@@ -30,7 +30,7 @@
       </v-form>
       <div v-if="!isCreate()">
         <v-divider class="mx-4 my-4" />
-        <v-form ref="passwordChangeForm" @submit.prevent="submitpasswordChange">
+        <v-form ref="passwordChangeForm" @submit.prevent="submitPasswordChange">
           <v-row
             ><v-col>
               <password-field

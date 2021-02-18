@@ -26,6 +26,7 @@ import Vue from "vue";
 import { handleError } from "~/utils/axios";
 
 export default Vue.extend({
+  name: "DeleteUser",
   props: {
     targetUserId: {
       type: Number,

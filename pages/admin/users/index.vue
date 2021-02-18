@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-container class="py-12">
     <v-sheet v-if="$fetchState.error"> 権限がありません。 </v-sheet>
     <div v-else>
       <div v-if="!users.length">ユーザが作成されていません。</div>
-      <v-row>
+      <v-row v-else>
         <v-spacer />
         <v-btn color="primary" @click="startCreateUser"
           >新しいユーザを作成</v-btn
@@ -59,8 +59,18 @@
         <input-user
           :key="targetUserId"
           :target-user-id="targetUserId"
-          @create="refresh"
-          @update="refetch"
+          @create="
+            openSnackbar('ユーザを作成しました');
+            refresh();
+          "
+          @update="
+            openSnackbar('ユーザ情報を更新しました');
+            refetch();
+          "
+          @updatePassword="
+            openSnackbar('ユーザパスワードを更新しました');
+            refetch();
+          "
         ></input-user>
       </v-dialog>
       <v-dialog v-model="deletingUser" width="500">
@@ -68,10 +78,22 @@
           :key="targetUserId"
           :target-user-id="targetUserId"
           @cancel="refresh"
-          @delete="refresh"
+          @delete="
+            openSnackbar('ユーザを削除しました');
+            refresh();
+          "
         ></delete-user>
       </v-dialog>
     </div>
+    <v-snackbar v-model="snackbar" timeout="2000">
+      {{ snackbarText }}
+
+      <template #action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-container>
 </template>
 
@@ -82,10 +104,12 @@ import type { UserInfo } from "$/types/user";
 export default Vue.extend({
   data() {
     return {
-      users: [{ name: "", id: 0, isAdmin: false }] as UserInfo[],
+      users: [] as UserInfo[],
       editingUser: false,
       deletingUser: false,
       targetUserId: null as null | number,
+      snackbar: false,
+      snackbarText: "",
     };
   },
   async fetch() {
@@ -111,6 +135,10 @@ export default Vue.extend({
     },
     async refetch() {
       this.users = await this.$api.admin.users.$get();
+    },
+    openSnackbar(text: string) {
+      this.snackbar = true;
+      this.snackbarText = text;
     },
   },
 });
