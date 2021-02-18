@@ -39,7 +39,7 @@
     "pg": "^8.5.1",
     "pm2": "^4.5.1",
     "typeorm": "^0.2.30",
-    "typeormer": "^0.1.1",
+    "typeormer": "^0.1.3",
     "winston": "^3.3.3"
   },
   "devDependencies": {
