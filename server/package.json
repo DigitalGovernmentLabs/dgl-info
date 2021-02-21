@@ -35,7 +35,7 @@
     "fastify-helmet": "^5.1.0",
     "fastify-jwt": "^2.3.0",
     "fastify-plugin": "^3.0.0",
-    "fastify-static": "^3.4.0",
+    "fastify-static": "^4.0.0",
     "pg": "^8.5.1",
     "pm2": "^4.5.1",
     "typeorm": "^0.2.30",
