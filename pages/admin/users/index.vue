@@ -1,15 +1,14 @@
 <template>
-  <v-container>
-    <v-sheet v-if="$fetchState.error"> 権限がありません。 </v-sheet>
+  <v-container class="py-12">
+    <v-sheet v-if="loadError"> エラー: {{ loadError }} </v-sheet>
     <div v-else>
       <div v-if="!users.length">ユーザが作成されていません。</div>
       <v-row>
         <v-spacer />
-        <v-btn color="primary" @click="startCreateUser"
-          >新しいユーザを作成</v-btn
-        >
+        <v-btn @click="startCreateUser">新しいユーザを作成</v-btn>
+        <v-spacer />
       </v-row>
-      <v-row v-for="user in users" :key="user.id">
+      <v-row v-for="user in users" :key="'user-' + user.id">
         <v-col>
           <v-card
             :loading="$fetchState.pending"
@@ -39,9 +38,10 @@
                 </v-col>
               </v-row>
               <v-card-actions>
-                <v-spacer />
-                <v-btn @click="startUpdateUser(user.id)">編集</v-btn>
-                <v-btn color="error" @click="startDeleteUser(user.id)"
+                <v-btn text color="success" @click="startUpdateUser(user)"
+                  >編集</v-btn
+                >
+                <v-btn text color="error" @click="startDeleteUser(user)"
                   >削除</v-btn
                 >
               </v-card-actions>
@@ -51,66 +51,124 @@
       </v-row>
       <v-row>
         <v-spacer />
-        <v-btn color="primary" @click="startCreateUser"
-          >新しいユーザを作成</v-btn
-        >
+        <v-btn @click="startCreateUser">新しいユーザを作成</v-btn>
+        <v-spacer />
       </v-row>
-      <v-dialog v-model="editingUser" width="500">
-        <input-user
-          :key="targetUserId"
-          :target-user-id="targetUserId"
-          @create="refresh"
-          @update="refetch"
-        ></input-user>
-      </v-dialog>
-      <v-dialog v-model="deletingUser" width="500">
-        <delete-user
-          :key="targetUserId"
-          :target-user-id="targetUserId"
-          @cancel="refresh"
-          @delete="refresh"
-        ></delete-user>
-      </v-dialog>
+      <input-user
+        :key="'user-input-' + (targetUser ? targetUser.id : 'new')"
+        v-model="editingUser"
+        :target-user-id="targetUser && targetUser.id"
+        @create="
+          openSnackbar('ユーザを作成しました');
+          refresh();
+        "
+        @update="
+          openSnackbar('ユーザ情報を更新しました');
+          refetch();
+        "
+        @updatePassword="
+          openSnackbar('ユーザパスワードを更新しました');
+          refetch();
+        "
+      />
     </div>
+    <v-snackbar v-model="snackbar" timeout="2000">
+      {{ snackbarText }}
+
+      <template #action="{ attrs }">
+        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <confirm-delete
+      v-if="targetUser"
+      :key="'delete' + targetUser.id"
+      v-model="deletingUser"
+      :what="`ユーザ ${targetUser.name} (id: ${targetUser.id})`"
+      :loading="deleteLoading"
+      :error="deleteResultError"
+      :challenge-text="targetUser.name"
+      @confirm="continueDeleteUser"
+      @cancel="refresh"
+    />
   </v-container>
 </template>
 
 <script lang="ts">
+import assert from "assert";
 import Vue from "vue";
 import type { UserInfo } from "$/types/user";
+import { handleError } from "~/utils/axios";
 
 export default Vue.extend({
   data() {
     return {
-      users: [{ name: "", id: 0, isAdmin: false }] as UserInfo[],
+      loadError: "",
+      users: [] as UserInfo[],
+      // operate user
+      targetUser: null as null | UserInfo,
+      // edit user
       editingUser: false,
+      // delete user
       deletingUser: false,
-      targetUserId: null as null | number,
+      deleteResultError: "",
+      deleteLoading: false,
+      // snackbar
+      snackbar: false,
+      snackbarText: "",
     };
   },
   async fetch() {
     await this.refetch();
   },
   methods: {
-    async refresh() {
+    async refresh(): Promise<void> {
       this.editingUser = false;
       this.deletingUser = false;
       await this.refetch();
     },
-    startCreateUser() {
-      this.targetUserId = null;
+    startCreateUser(): void {
+      this.targetUser = null;
       this.editingUser = true;
     },
-    startUpdateUser(id: UserInfo["id"]) {
-      this.targetUserId = id;
+    startUpdateUser(user: UserInfo): void {
+      this.targetUser = user;
       this.editingUser = true;
     },
-    startDeleteUser(id: UserInfo["id"]) {
-      this.targetUserId = id;
+    startDeleteUser(user: UserInfo): void {
+      this.targetUser = user;
       this.deletingUser = true;
     },
-    async refetch() {
-      this.users = await this.$api.admin.users.$get();
+    async continueDeleteUser(): Promise<void> {
+      this.deleteResultError = "";
+      this.deleteLoading = true;
+      try {
+        assert(this.targetUser);
+        await this.$api.admin.user._userId(this.targetUser.id).$delete({
+          body: {
+            userId: this.targetUser.id,
+          },
+        });
+        this.openSnackbar("ユーザを削除しました");
+        await this.refresh();
+      } catch (e: unknown) {
+        this.deleteResultError = handleError(e);
+      } finally {
+        this.deleteLoading = false;
+      }
+    },
+    async refetch(): Promise<void> {
+      this.loadError = "";
+      try {
+        this.users = await this.$api.admin.user.$get();
+      } catch (e: unknown) {
+        this.loadError = handleError(e);
+      }
+    },
+    openSnackbar(text: string): void {
+      this.snackbar = true;
+      this.snackbarText = text;
     },
   },
 });

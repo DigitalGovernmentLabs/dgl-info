@@ -71,10 +71,10 @@ export default Vue.extend({
     await this.fetchLinkLists();
   },
   methods: {
-    async fetchLinkLists() {
+    async fetchLinkLists(): Promise<void> {
       this.linkLists = await this.$api.normal.linkLists.$get();
     },
-    async addListTitle() {
+    async addListTitle(): Promise<void> {
       if (!this.newTitle) return;
 
       await this.$api.normal.linkLists.post({
@@ -83,7 +83,7 @@ export default Vue.extend({
       this.newTitle = "";
       await this.fetchLinkLists();
     },
-    async deleteLink(link: Link) {
+    async deleteLink(link: Link): Promise<void> {
       await this.$api.normal.links._linkId(link.linkId).delete();
       await this.fetchLinkLists();
     },

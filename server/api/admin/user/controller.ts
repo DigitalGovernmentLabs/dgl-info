@@ -22,11 +22,12 @@ export default defineController(() => ({
     const userRepository = getRepository(User);
     const exist =
       (await userRepository.findOne({ name: userName })) !== undefined;
-    if (exist)
+    if (exist) {
       return {
         status: 400,
         body: { errorMessage: "すでに存在しているユーザ名です。" },
       };
+    }
     const passwordHash = await argon2.hash(password, {
       type: argon2.argon2id,
     });
@@ -37,7 +38,7 @@ export default defineController(() => ({
     });
     await userRepository.save(user);
     return {
-      status: 200,
+      status: 201,
       body: {
         id: user.id,
         name: user.name,

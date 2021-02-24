@@ -1,13 +1,13 @@
 import { defineHooks } from "./$relay";
 
 export default defineHooks(() => ({
-  onRequest: (req, reply, done) => {
+  preValidation: (req, reply, done) => {
     // ログインユーザのみ
     if (req.user === null) {
       void reply.code(403).send();
       return;
     }
-    // 変更操作は Admin のみ
+    // 変更操作は管理者のみ
     if (!["GET", "OPTIONS"].includes(req.method)) {
       if (req.user.isAdmin !== true) {
         void reply.code(403).send();
