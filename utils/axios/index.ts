@@ -13,6 +13,8 @@ export const handleError = (e: unknown): string => {
       const message = e.response?.data?.errorMessage;
       if (typeof message === "string") return message;
       return "入力が間違っています。";
+    } else if (status === 403) {
+      return "権限がありません。";
     } else if (status === 500) {
       return "サーバーエラーが発生。";
     } else {
