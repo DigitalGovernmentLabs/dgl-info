@@ -1,7 +1,7 @@
 import { defineHooks } from "./$relay";
 
 export default defineHooks(() => ({
-  onRequest: (req, reply, done) => {
+  preValidation: (req, reply, done) => {
     // ログインユーザのみ
     if (req.user === null) {
       void reply.code(403).send();
