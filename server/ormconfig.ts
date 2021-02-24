@@ -18,7 +18,7 @@ const options: ConnectionOptions = {
   password: TYPEORM_PASSWORD,
   database: TYPEORM_DATABASE,
   port: Number(TYPEORM_PORT),
-  migrationsRun: true,
+  migrationsRun: process.env.NODE_ENV === "production",
   synchronize: false,
   logging: false,
   entities: ["entity/**/*.ts"],
