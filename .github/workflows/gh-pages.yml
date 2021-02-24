@@ -27,6 +27,7 @@ jobs:
           EOT
       - run: yarn --frozen-lockfile
       - run: yarn install:server --frozen-lockfile
+      - run: echo "${{ secrets.SERVER_ENV }}" > server/.env
       - run: yarn build:client
       - uses: peaceiris/actions-gh-pages@v3
         with:
