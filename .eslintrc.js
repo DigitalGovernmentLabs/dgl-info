@@ -16,7 +16,7 @@ module.exports = {
     complexity: ["error", 8],
     "max-depth": ["error", 3],
     "max-nested-callbacks": ["error", 2],
-    "max-lines": ["error", 200],
+    "max-lines": ["error", 300],
     // code の max-len は prettier にまかせる。
     "max-len": [
       "error",
@@ -46,6 +46,12 @@ module.exports = {
           },
         ],
         "@typescript-eslint/no-implicit-any-catch": "error",
+      },
+    },
+    {
+      files: ["*.vue"],
+      rules: {
+        "@typescript-eslint/explicit-function-return-type": "error",
       },
     },
   ],
