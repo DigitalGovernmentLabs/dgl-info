@@ -41,16 +41,16 @@ export default Vue.extend({
     this.user = await this.$auth.get();
   },
   methods: {
-    async refresh() {
+    async refresh(): Promise<void> {
       const user = await this.$auth.get();
       this.user = user;
     },
-    async logout() {
+    async logout(): Promise<void> {
       this.user = null;
       await this.$auth.logout();
       await this.refresh();
     },
-    login() {
+    login(): void {
       this.$router.push("/login");
     },
   },

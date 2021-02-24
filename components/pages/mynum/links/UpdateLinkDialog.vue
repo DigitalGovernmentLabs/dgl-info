@@ -66,7 +66,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    async updateLink() {
+    async updateLink(): Promise<void> {
       this.dialog = false;
       await this.$api.normal.links
         ._linkId(this.link.linkId)

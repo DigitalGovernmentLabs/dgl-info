@@ -54,7 +54,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    async authCheck() {
+    async authCheck(): Promise<boolean> {
       await this.$auth.refetch();
       const user = await this.$auth.get();
       if (user) {
@@ -63,7 +63,7 @@ export default Vue.extend({
       }
       return false;
     },
-    async submit() {
+    async submit(): Promise<void> {
       this.resultError = "";
       const valid = (this.$refs.form as any).validate?.();
       if (!valid) return;
