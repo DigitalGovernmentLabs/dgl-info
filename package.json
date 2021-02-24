@@ -26,6 +26,7 @@
     "typecheck:client": "tsc --noEmit",
     "typecheck:server": "npm run typecheck --prefix server",
     "deploy:front": "push-dir --dir=dist --branch=gh-pages --cleanup",
+    "typeorm": "yarn --cwd server typeorm",
     "migration:generate": "npm run migration:generate --prefix server",
     "migration:run": "npm run migration:run --prefix server",
     "migration:revert": "npm run migration:revert --prefix server",
