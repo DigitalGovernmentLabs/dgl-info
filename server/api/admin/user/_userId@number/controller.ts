@@ -20,7 +20,7 @@ export default defineController(() => ({
   get: async ({ params: { userId } }) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({ id: userId });
-    if (user === undefined) return { status: 400 };
+    if (user === undefined) return { status: 404 };
     return {
       status: 200,
       body: {
@@ -34,8 +34,9 @@ export default defineController(() => ({
     const { userId } = body;
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({ id: userId });
-    if (user === undefined)
+    if (user === undefined) {
       return { status: 400, body: { errorMessage: "User not found." } };
+    }
 
     // NOTE: schema をおいていないので任意の入力が来ることを想定し、能動的なチェックを行う。
 
@@ -66,8 +67,9 @@ export default defineController(() => ({
   delete: async ({ body: { userId } }) => {
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({ id: userId });
-    if (user === undefined)
+    if (user === undefined) {
       return { status: 400, body: { errorMessage: "User not found." } };
+    }
     await userRepository.delete({ id: user.id });
     return {
       status: 200,
