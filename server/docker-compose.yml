@@ -24,4 +24,7 @@ services:
 
 volumes:
   pg_data:
-    driver: local
+
+networks:
+  default:
+    name: dgl_info_default
