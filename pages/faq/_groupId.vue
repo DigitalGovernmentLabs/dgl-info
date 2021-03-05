@@ -75,7 +75,7 @@ export default Vue.extend({
       return this.$fetchState.pending || this.sending;
     },
     faqGroupId(): number {
-      return +this.$route.params.groupId;
+      return Number(this.$route.params.groupId);
     },
   },
   methods: {
@@ -89,7 +89,7 @@ export default Vue.extend({
       [{ faqList: this.faqList }, this.user] = await Promise.all([
         this.$api.normal.faq.$get({
           query: {
-            groupId: +this.$route.params.groupId,
+            groupId: Number(this.$route.params.groupId),
           },
         }),
         this.$auth.refetch(),
