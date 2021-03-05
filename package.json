@@ -36,7 +36,8 @@
     "start:client": "nuxt-ts serve",
     "start:server": "npm start --prefix server",
     "preinstall": "npx only-allow yarn",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "test": "jest"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint",
