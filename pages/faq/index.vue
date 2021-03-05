@@ -1,8 +1,18 @@
 <template>
   <v-container>
-    <v-sheet v-if="loadError"> エラー: {{ loadError }} </v-sheet>
+    <v-sheet v-if="loading">Loading...</v-sheet>
+    <v-sheet v-else-if="loadError"> エラー: {{ loadError }} </v-sheet>
     <div v-else>
-      <div v-if="!faqGroupList.length">まだ FAQ がありません。</div>
+      <div
+        v-if="isAdmin && faqGroupList.length >= 10"
+        style="max-width: 800px"
+        class="mx-auto"
+      >
+        <admin-faq-group @create="refresh" />
+      </div>
+      <div v-if="!faqGroupList.length" class="text-center">
+        まだ FAQ グループがありません。
+      </div>
       <div v-else>
         <draggable
           v-model="faqGroupList"
@@ -25,6 +35,7 @@
           >
             <v-card-title>{{ faqGroup.name }}</v-card-title>
             <v-card-text>
+              <div class="text-caption">{{ faqGroup.faqNumber }}件</div>
               <div class="text-body-1">
                 <easy-text :text="faqGroup.description" />
               </div>
@@ -59,7 +70,15 @@
                 >削除</v-btn
               >
               <v-spacer />
-              <v-btn x-large color="primary" outlined text>開く</v-btn>
+              <v-btn
+                x-large
+                color="info"
+                outlined
+                text
+                nuxt
+                :to="$pagesPath.faq._groupId(faqGroup.id).$url()"
+                >開く</v-btn
+              >
             </v-card-actions>
           </v-card>
         </draggable>
@@ -75,15 +94,6 @@
       :target-faq-group-id="targetFaqGroup.id"
       @update="refresh"
     />
-    <v-snackbar v-model="snackbar" timeout="2000">
-      {{ snackbarText }}
-
-      <template #action="{ attrs }">
-        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-          閉じる
-        </v-btn>
-      </template>
-    </v-snackbar>
     <confirm-delete
       v-if="targetFaqGroup"
       :key="'delete-' + targetFaqGroup.id"
@@ -91,7 +101,6 @@
       :what="`FAQグループ ${targetFaqGroup.name}`"
       :loading="deleteLoading"
       :error="deleteResultError"
-      :challenge-text="targetFaqGroup.name"
       @confirm="continueDeleteFaqGroup"
       @cancel="refresh"
     />
@@ -102,8 +111,8 @@
 import assert from "assert";
 import Vue from "vue";
 import draggable from "vuedraggable";
-import { FaqGroupInfo } from "~/server/types/faq";
-import { UserInfo } from "~/server/types/user";
+import type { FaqGroupInfo } from "~/server/types/faq";
+import type { UserInfo } from "~/server/types/user";
 import { handleError } from "~/utils/axios";
 
 export default Vue.extend({
@@ -125,9 +134,6 @@ export default Vue.extend({
       deletingFaqGroup: false,
       deleteResultError: "",
       deleteLoading: false,
-      // snackbar
-      snackbar: false,
-      snackbarText: "",
     };
   },
   async fetch() {
@@ -177,7 +183,7 @@ export default Vue.extend({
         this.refresh();
       } catch (e: unknown) {
         const err = `並び替えの通信中にエラーが発生しました: ${handleError(e)}`;
-        this.showSnackbar(err);
+        this.$snackbar.open(err);
       } finally {
         this.patchSending = false;
       }
@@ -203,10 +209,6 @@ export default Vue.extend({
       } finally {
         this.deleteLoading = false;
       }
-    },
-    showSnackbar(text: string): void {
-      this.snackbar = true;
-      this.snackbarText = text;
     },
   },
 });
