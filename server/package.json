@@ -22,6 +22,7 @@
     "pm2:logs": "pm2 logs",
     "pm2:monit": "pm2 monit",
     "typecheck": "tsc --noEmit",
+    "ts-node": "ts-node -T -r tsconfig-paths/register",
     "start": "cross-env NODE_ENV=production node index.js",
     "preinstall": "npx only-allow yarn"
   },
