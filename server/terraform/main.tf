@@ -148,10 +148,6 @@ module "docker_compose" {
   dc_version = "1.28.5"
 }
 
-output "debug_result" {
-  value = module.docker_compose.result
-}
-
 resource "aws_eip" "dgl_eip" {
   instance = aws_instance.dgl_instance.id
   vpc      = true
