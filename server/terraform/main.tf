@@ -137,8 +137,8 @@ module "nginx" {
   ssl_name    = var.tags.Name
 }
 
-module "docker-compose" {
-  source = "./modules/docker-compose"
+module "docker_compose" {
+  source = "./modules/docker_compose"
 
   user        = "ec2-user"
   host        = aws_instance.dgl_instance.public_ip
@@ -148,8 +148,8 @@ module "docker-compose" {
   dc_version = "1.28.5"
 }
 
-output "nginx_result" {
-  value = module.nginx.result
+output "debug_result" {
+  value = module.docker_compose.result
 }
 
 resource "aws_eip" "dgl_eip" {

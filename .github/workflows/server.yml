@@ -94,6 +94,7 @@ jobs:
           EOT
       - run: |
           ssh dgl.jp <<EOC
+          docker-compose --version
           cd dgl-info/server
           git pull origin master
           cat <<END_OF_SERVER_ENV > .env

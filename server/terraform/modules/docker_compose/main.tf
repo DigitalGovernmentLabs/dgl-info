@@ -33,9 +33,10 @@ resource "sshcommand_command" "install_docker_compose" {
   private_key = var.private_key
   command     = <<END_OF_COMMAND
 cat <<'END_OF_SHELL' | bash || true
+set -euxo pipefail
 
 DC_VERSION="${var.dc_version}"
-sudo curl -L "https://github.com/docker/compose/releases/download/$DC_VERSION/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+sudo curl -L "https://github.com/docker/compose/releases/download/$DC_VERSION/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 
 END_OF_SHELL
