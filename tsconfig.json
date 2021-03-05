@@ -12,13 +12,14 @@
     "strictPropertyInitialization": false,
     "noEmit": true,
     "experimentalDecorators": true,
+    "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"],
       "$/*": ["./server/*"]
     },
-    "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios", "vuetify"]
+    "types": ["node", "jest", "@nuxt/types", "@nuxtjs/axios", "vuetify"]
   },
   "exclude": ["node_modules", "server"]
 }
