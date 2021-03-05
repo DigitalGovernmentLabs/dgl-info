@@ -49,7 +49,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="users.length >= 4">
         <v-spacer />
         <v-btn @click="startCreateUser">新しいユーザを作成</v-btn>
         <v-spacer />
