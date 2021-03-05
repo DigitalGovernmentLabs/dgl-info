@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
-  <pre v-html="textDisplay" />
+  <pre class="text" v-html="textDisplay" />
 </template>
 
 <script lang="ts">
@@ -18,3 +18,9 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style>
+.text {
+  white-space: pre-wrap;
+}
+</style>
