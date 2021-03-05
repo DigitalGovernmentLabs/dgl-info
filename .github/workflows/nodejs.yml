@@ -28,7 +28,7 @@ jobs:
       - run: yarn typecheck
       - run: yarn test
       - run: yarn build
-  server-test:
+  test-server:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
