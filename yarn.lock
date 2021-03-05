@@ -2915,10 +2915,10 @@ asn1@~0.2.3:
   dependencies:
     safer-buffer "~2.1.0"
 
-aspida@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/aspida/-/aspida-1.5.0.tgz#19155d0bd09caa0f31065c5e3def1b3ddfbf0dcc"
-  integrity sha512-oec37DtPzR++4v89nRgvoDtKbU6d0Z9hHRbwep6c/93Kul6YHrCfZmbtTSGoxwm8rAmDe1KJuNb7VRw4bzyolA==
+aspida@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/aspida/-/aspida-1.6.1.tgz#318c15a88f237983f4f23dd1440391b495d7ec8a"
+  integrity sha512-Q77d8+21/SVFMHzRA2sbsPbmhLr0793/gxlvpM8wCdx6uhk7PzEO69B4vdVOrUr/AxcFWtEQ88zp9fnlmra4zw==
   dependencies:
     "@types/minimist" "^1.2.1"
     chokidar "^3.5.1"
@@ -3908,7 +3908,7 @@ colorette@^1.2.1:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.1.tgz#4d0b921325c14faf92633086a536db6e89564b1b"
   integrity sha512-puCDz0CzydiSYOrnXpz/PKd69zRrribezjtE9yd4zvytoRc8+RY/KJPvtPFKZS3E3wP6neGyMe0vOTlHO5L3Pw==
 
-combined-stream@^1.0.6, combined-stream@~1.0.6:
+combined-stream@^1.0.6, combined-stream@^1.0.8, combined-stream@~1.0.6:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
@@ -5698,6 +5698,15 @@ fork-ts-checker-webpack-plugin@^6.1.0:
     semver "^7.3.2"
     tapable "^1.0.0"
 
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
 form-data@~2.3.2:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.3.3.tgz#dcce52c05f644f298c6a7ab936bd724ceffbf3a6"
@@ -6351,7 +6360,7 @@ human-signals@^2.1.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-husky@^5.1.3:
+husky@^5.1.1:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/husky/-/husky-5.1.3.tgz#1a0645a4fe3ffc006c4d0d8bd0bcb4c98787cc9d"
   integrity sha512-fbNJ+Gz5wx2LIBtMweJNY1D7Uc8p1XERi5KNRMccwfQA+rXlxWNSdUxswo0gT8XqxywTIw7Ywm/F4v/O35RdMg==
@@ -12138,15 +12147,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@~4.1:
+typescript@~4.1, typescript@~4.1.5:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.1.5.tgz#123a3b214aaff3be32926f0d8f1f6e704eb89a72"
   integrity sha512-6OSu9PTIzmn9TCDiovULTnET6BgXtDYL4Gg4szY+cGsc3JP1dQL8qvE8kShTRx1NIw4Q9IBHlwODjkjWEtMUyA==
-
-typescript@~4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
-  integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
 
 ua-parser-js@^0.7.24:
   version "0.7.24"
