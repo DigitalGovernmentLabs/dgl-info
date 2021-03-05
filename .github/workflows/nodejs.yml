@@ -48,6 +48,8 @@ jobs:
             ${{ runner.os }}-yarn-server-
       - run: yarn --frozen-lockfile
         working-directory: server
+      - run: yarn generate
+        working-directory: server
       - run: yarn typecheck
         working-directory: server
       - run: yarn build
