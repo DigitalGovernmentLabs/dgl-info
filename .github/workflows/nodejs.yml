@@ -49,5 +49,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn --frozen-lockfile
+        working-directory: server
       - run: yarn typecheck
+        working-directory: server
       - run: yarn build
+        working-directory: server
