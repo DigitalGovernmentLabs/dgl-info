@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-sheet class="my-6 px-6 py-6" elevation="2">
-      <h2>管理メニュー</h2>
+      <h2>FAQ グループ管理メニュー</h2>
       <v-divider />
       <div class="my-4">
         <v-btn @click="startCreateFaqGroup">FAQグループの追加</v-btn>
@@ -13,19 +13,11 @@
       @create="
         (arg) => {
           refresh();
+          $snackbar.open('FAQ グループを作成しました');
           $emit('create', arg);
         }
       "
     />
-    <v-snackbar v-model="snackbar" timeout="2000">
-      {{ snackbarText }}
-
-      <template #action="{ attrs }">
-        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-          閉じる
-        </v-btn>
-      </template>
-    </v-snackbar>
   </div>
 </template>
 
@@ -35,8 +27,6 @@ export default Vue.extend({
   data() {
     return {
       creatingFaqGroup: false,
-      snackbar: false,
-      snackbarText: "",
     };
   },
   methods: {
@@ -45,10 +35,6 @@ export default Vue.extend({
     },
     startCreateFaqGroup(): void {
       this.creatingFaqGroup = true;
-    },
-    openSnackbar(text: string): void {
-      this.snackbarText = text;
-      this.snackbar = true;
     },
   },
 });

@@ -1,9 +1,11 @@
 import { getRepository } from "typeorm";
 import { defineController } from "./$relay";
 import { FaqGroup } from "$/entity/FaqGroup";
+import { Faq } from "$/entity/Faq";
 
 export default defineController(() => ({
   get: async ({ params: { faqGroupId } }) => {
+    const faqRepository = getRepository(Faq);
     const faqGroupRepository = getRepository(FaqGroup);
     const faqGruop = await faqGroupRepository.findOne(faqGroupId);
     if (!faqGruop) return { status: 404 };
@@ -13,6 +15,7 @@ export default defineController(() => ({
         id: faqGruop.id,
         name: faqGruop.name,
         description: faqGruop.description,
+        faqNumber: await faqRepository.count({ where: { group: faqGruop } }),
       },
     };
   },

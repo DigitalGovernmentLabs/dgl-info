@@ -40,6 +40,8 @@ const config: Configuration = {
   plugins: [
     { src: "~/plugins/api", mode: "client" },
     { src: "~/plugins/auth", mode: "client" },
+    { src: "~/plugins/$path" },
+    { src: "~/plugins/snackbar", mode: "client" },
   ],
   /*
    ** Auto import components

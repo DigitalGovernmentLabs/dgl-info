@@ -22,6 +22,7 @@
     "pm2:logs": "pm2 logs",
     "pm2:monit": "pm2 monit",
     "typecheck": "tsc --noEmit",
+    "ts-node": "ts-node -T -r tsconfig-paths/register",
     "start": "cross-env NODE_ENV=production node index.js",
     "preinstall": "npx only-allow yarn"
   },
@@ -45,13 +46,15 @@
   "devDependencies": {
     "@types/busboy": "^0.2.3",
     "cross-env": "^7.0.3",
+    "csv-parse": "^4.15.3",
     "frourio": "^0.23.1",
     "nodemon-webpack-plugin": "^4.4.4",
     "npm-run-all": "^4.1.5",
     "ts-loader": "^8.0.17",
     "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.3.0",
-    "typescript": "^4.2.3",
+    "typescript": "~4.1.5",
     "webpack": "^5.24.3",
     "webpack-cli": "^4.3.1",
     "webpack-node-externals": "^2.5.2"

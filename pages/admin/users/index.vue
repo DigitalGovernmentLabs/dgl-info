@@ -49,7 +49,7 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="users.length >= 4">
         <v-spacer />
         <v-btn @click="startCreateUser">新しいユーザを作成</v-btn>
         <v-spacer />
@@ -59,28 +59,19 @@
         v-model="editingUser"
         :target-user-id="targetUser && targetUser.id"
         @create="
-          openSnackbar('ユーザを作成しました');
+          $snackbar.open('ユーザを作成しました');
           refresh();
         "
         @update="
-          openSnackbar('ユーザ情報を更新しました');
+          $snackbar.open('ユーザ情報を更新しました');
           refetch();
         "
         @updatePassword="
-          openSnackbar('ユーザパスワードを更新しました');
+          $snackbar.open('ユーザパスワードを更新しました');
           refetch();
         "
       />
     </div>
-    <v-snackbar v-model="snackbar" timeout="2000">
-      {{ snackbarText }}
-
-      <template #action="{ attrs }">
-        <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
-          閉じる
-        </v-btn>
-      </template>
-    </v-snackbar>
     <confirm-delete
       v-if="targetUser"
       :key="'delete' + targetUser.id"
@@ -114,9 +105,6 @@ export default Vue.extend({
       deletingUser: false,
       deleteResultError: "",
       deleteLoading: false,
-      // snackbar
-      snackbar: false,
-      snackbarText: "",
     };
   },
   async fetch() {
@@ -150,7 +138,7 @@ export default Vue.extend({
             userId: this.targetUser.id,
           },
         });
-        this.openSnackbar("ユーザを削除しました");
+        this.$snackbar.open("ユーザを削除しました");
         await this.refresh();
       } catch (e: unknown) {
         this.deleteResultError = handleError(e);
@@ -165,10 +153,6 @@ export default Vue.extend({
       } catch (e: unknown) {
         this.loadError = handleError(e);
       }
-    },
-    openSnackbar(text: string): void {
-      this.snackbar = true;
-      this.snackbarText = text;
     },
   },
 });

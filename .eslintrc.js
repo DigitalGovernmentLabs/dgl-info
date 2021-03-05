@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   root: true,
   env: {
@@ -22,6 +24,8 @@ module.exports = {
         code: 300,
         comments: 80,
         ignoreUrls: true,
+        // Shebang
+        ignorePattern: "^#!",
       },
     ],
     "no-console": "error",
@@ -31,7 +35,7 @@ module.exports = {
   overrides: [
     {
       files: ["*.ts"],
-      parserOptions: { project: "./tsconfig.json" },
+      parserOptions: { project: path.join(__dirname, "tsconfig.json") },
       rules: {
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": "error",

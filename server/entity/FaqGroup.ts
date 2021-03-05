@@ -29,4 +29,7 @@ export class FaqGroup {
   @Column()
   @Index()
   order: number;
+
+  @Column({ default: () => "NOW()" })
+  lastListUpdateDate: Date;
 }

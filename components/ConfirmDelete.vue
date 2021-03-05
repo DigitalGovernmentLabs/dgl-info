@@ -7,7 +7,7 @@
         <v-card-text>
           削除する場合は、<i>{{ fullChallengeText }}</i> と入力してください。
           <form-error :message="error" />
-          <v-text-field v-model="confirm" />
+          <v-text-field v-model="confirm" autocomplete="off" />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
