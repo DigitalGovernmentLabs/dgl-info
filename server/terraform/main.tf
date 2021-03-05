@@ -115,8 +115,6 @@ resource "aws_instance" "dgl_instance" {
       "sudo yum install -y docker",
       "sudo service docker start",
       "sudo usermod -a -G docker ec2-user",
-      "sudo curl -L https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose",
-      "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo yum install git -y",
       # "sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000",
       "git clone https://github.com/DigitalGovernmentLabs/dgl-info.git",
@@ -137,6 +135,17 @@ module "nginx" {
   host        = aws_instance.dgl_instance.public_ip
   private_key = var.private_key
   ssl_name    = var.tags.Name
+}
+
+module "docker-compose" {
+  source = "./modules/docker-compose"
+
+  user        = "ec2-user"
+  host        = aws_instance.dgl_instance.public_ip
+  private_key = var.private_key
+  ssl_name    = var.tags.Name
+
+  dc_version = "1.28.5"
 }
 
 output "nginx_result" {
