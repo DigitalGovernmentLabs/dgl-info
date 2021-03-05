@@ -3,6 +3,7 @@ import { getManager, getRepository, Repository } from "typeorm";
 import { defineController } from "./$relay";
 import { FaqGroup } from "$/entity/FaqGroup";
 import { FaqGroupInfo } from "$/types/faq";
+import { Faq } from "$/entity/Faq";
 
 const getMaxOrder = async (repo: Repository<FaqGroup>): Promise<number> => {
   const max =
@@ -19,18 +20,22 @@ const getMaxOrder = async (repo: Repository<FaqGroup>): Promise<number> => {
 
 export default defineController(() => ({
   get: async () => {
+    const faqRepository = getRepository(Faq);
     const faqGroupRepository = getRepository(FaqGroup);
     const faqGroupList = await faqGroupRepository.find({
       order: {
         order: "ASC",
       },
     });
-    const res: FaqGroupInfo[] = faqGroupList.map(
-      (faqGroup): FaqGroupInfo => ({
-        id: faqGroup.id,
-        name: faqGroup.name,
-        description: faqGroup.description,
-      }),
+    const res: FaqGroupInfo[] = await Promise.all(
+      faqGroupList.map(
+        async (faqGroup): Promise<FaqGroupInfo> => ({
+          id: faqGroup.id,
+          name: faqGroup.name,
+          description: faqGroup.description,
+          faqNumber: await faqRepository.count({ where: { group: faqGroup } }),
+        }),
+      ),
     );
     return { status: 200, body: res };
   },
