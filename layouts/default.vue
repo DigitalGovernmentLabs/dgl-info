@@ -3,6 +3,7 @@
     <user-banner />
     <v-main app>
       <nuxt />
+      <snackbar />
     </v-main>
   </v-app>
 </template>
