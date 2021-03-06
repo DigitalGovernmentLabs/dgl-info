@@ -46,7 +46,7 @@
       :loading="deleteLoading"
       :error="deleteResultError"
       @confirm="continueDeleteFaq"
-      @cancel="refresh"
+      @cancel="$emit('cancel:delete')"
     />
   </div>
 </template>
