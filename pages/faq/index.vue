@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-sheet v-if="loading">Loading...</v-sheet>
+    <v-sheet v-if="$fetchState.pending">Loading...</v-sheet>
     <v-sheet v-else-if="loadError"> エラー: {{ loadError }} </v-sheet>
     <div v-else>
       <div
