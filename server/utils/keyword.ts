@@ -8,3 +8,7 @@ export const sortKeywords = (keywords: string[]): string[] => {
     return l1 < l2 ? -1 : 1;
   });
 };
+
+export const sortUniqueKeywords = (keywords: string[]): string[] => {
+  return sortKeywords([...new Set(keywords)]);
+};

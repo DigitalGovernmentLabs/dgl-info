@@ -9,7 +9,7 @@ import parse from "csv-parse";
 import { createConnection, getRepository } from "typeorm";
 import { FaqGroup } from "$/entity/FaqGroup";
 import { Faq } from "$/entity/Faq";
-import { sortKeywords } from "$/utils/keyword";
+import { sortUniqueKeywords } from "$/utils/keyword";
 
 const getTblFaq = (): Promise<
   Record<
@@ -152,7 +152,7 @@ void (async () => {
         answer: normalizeText(faqRow.atxt),
         question: normalizeText(faqRow.qtxt),
         group: groups[faqRow.kasyo],
-        keywords: sortKeywords(keywords),
+        keywords: sortUniqueKeywords(keywords),
         createDate,
         updateDate: createDate,
       });

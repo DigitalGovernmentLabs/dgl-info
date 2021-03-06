@@ -61,14 +61,24 @@
                 @click="startUpdateFaqGroup(faqGroup)"
                 >編集</v-btn
               >
-              <v-btn
-                v-if="isAdmin"
-                color="error"
-                large
-                text
-                @click="startDeleteFaqGroup(faqGroup)"
-                >削除</v-btn
-              >
+              <div v-if="isAdmin">
+                <v-btn
+                  v-if="faqGroup.faqNumber === 0"
+                  color="error"
+                  large
+                  text
+                  @click="startDeleteFaqGroup(faqGroup)"
+                  >削除</v-btn
+                >
+                <v-tooltip v-else bottom :disabled="drag">
+                  <template #activator="{ on, attrs }">
+                    <div v-bind="attrs" v-on="on">
+                      <v-btn color="error" large text disabled>削除</v-btn>
+                    </div>
+                  </template>
+                  <span>FAQ が 0 件でないと削除できません。</span>
+                </v-tooltip>
+              </div>
               <v-spacer />
               <v-btn
                 x-large
