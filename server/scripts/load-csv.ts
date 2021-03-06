@@ -1,4 +1,4 @@
-#!/usr/bin/env -S ../node_modules/.bin/ts-node -T -r ../node_modules/tsconfig-paths/register.js
+#!/usr/bin/env ./scripts/ts-runner.sh
 
 /* eslint-disable max-nested-callbacks,complexity */
 import "reflect-metadata";
