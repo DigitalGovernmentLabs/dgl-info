@@ -95,10 +95,16 @@ jobs:
       - run: |
           ssh dgl.jp <<EOC
           docker-compose --version
-          cd dgl-info/server
-          git pull origin master
+
+          cd dgl-info
+          git fetch origin
+          git clean -xdf
+          git checkout origin/master
+
+          cd server
           cat <<END_OF_SERVER_ENV > .env
           ${{ secrets.SERVER_ENV }}
           END_OF_SERVER_ENV
+
           docker-compose up -d --build
           EOC
