@@ -573,10 +573,10 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-aspida@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/aspida/-/aspida-1.6.1.tgz#318c15a88f237983f4f23dd1440391b495d7ec8a"
-  integrity sha512-Q77d8+21/SVFMHzRA2sbsPbmhLr0793/gxlvpM8wCdx6uhk7PzEO69B4vdVOrUr/AxcFWtEQ88zp9fnlmra4zw==
+aspida@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/aspida/-/aspida-1.7.1.tgz#b021e1766991b3b9a7b85f297f5ac05af4b42b60"
+  integrity sha512-YIfSeLHPAtIkWnu8QFfKvlPB0/S6sRjD2WgmHuiTbhvTdINqK0KMPNK8WepUORXmUcraSaeHN1xO5MMKTREiTA==
   dependencies:
     "@types/minimist" "^1.2.1"
     chokidar "^3.5.1"
@@ -1729,12 +1729,12 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-frourio@^0.24.0:
-  version "0.24.0"
-  resolved "https://registry.yarnpkg.com/frourio/-/frourio-0.24.0.tgz#280b2352a580c1ba3600e2dba66dab6b9597a6a6"
-  integrity sha512-PCl6m4JJqgjnATatsG27cuc9fWYLYnQYjfGPmz8T4FPvqIb8MezvIutZULIf/6ydBPJs1IkWdtnWhQJp3YNCvA==
+frourio@^0.25.1:
+  version "0.25.1"
+  resolved "https://registry.yarnpkg.com/frourio/-/frourio-0.25.1.tgz#e63cebc03b8c2be70426031acc61873dfff02c60"
+  integrity sha512-ycV09xK6/kssWVjXRBszMe+j69fR/bt3S4u/TKEv5mjyMlEteKkUypQHL/bUOL1IJL//alOXlbPNvAmqkCBHQA==
   dependencies:
-    aspida "^1.6.1"
+    aspida "^1.7.1"
     velona "^0.7.0"
 
 fs-minipass@^1.2.5:
