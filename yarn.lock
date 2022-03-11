@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@aspida/axios@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@aspida/axios/-/axios-1.6.1.tgz#25e6ee740dd97ce8c05f56b6b6ad745f4ff7c82f"
-  integrity sha512-aZfZncIvZBTvdxpuLyDJggQ7+1Sg7GR0lsGwWh+JzakWNj9E0K0HS+ptJhhirE0iww+wmyM07sOf+W8QkKsQcQ==
+"@aspida/axios@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@aspida/axios/-/axios-1.9.0.tgz#600c50426a2c358649ff9de6ea5838a8563c781f"
+  integrity sha512-EJUY4ykf5SRORmAP8ABBi5AjQTG591dKAQakgvirnZ7xrYJLdDWGBYDCTdFhVNSyYkvXUv8wNpFMSaYrnLHh/Q==
   dependencies:
-    aspida "^1.6.1"
+    aspida "^1.7.1"
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
@@ -2095,10 +2095,15 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
-"@types/minimist@^1.2.0", "@types/minimist@^1.2.1":
+"@types/minimist@^1.2.0":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.1.tgz#283f669ff76d7b8260df8ab7a4262cc83d988256"
   integrity sha512-fZQQafSREFyuZcdWFAExYjBiCL7AUCdgsk80iO0q4yihYYdcIiH28CcuPTGFgLOCC8RlW49GSQxdHwZP+I7CNg==
+
+"@types/minimist@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/minimist/-/minimist-1.2.2.tgz#ee771e2ba4b3dc5b372935d549fd9617bf345b8c"
+  integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
   version "14.14.31"
@@ -2916,12 +2921,12 @@ asn1@~0.2.3:
   dependencies:
     safer-buffer "~2.1.0"
 
-aspida@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/aspida/-/aspida-1.6.1.tgz#318c15a88f237983f4f23dd1440391b495d7ec8a"
-  integrity sha512-Q77d8+21/SVFMHzRA2sbsPbmhLr0793/gxlvpM8wCdx6uhk7PzEO69B4vdVOrUr/AxcFWtEQ88zp9fnlmra4zw==
+aspida@^1.7.1:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/aspida/-/aspida-1.9.0.tgz#af74dd2b3d57b42ea42794fe3713317ada0e7795"
+  integrity sha512-R5NAejLGVwnoGTfiY0VQfkoHjPvI+3QRP+kYsGDVTu1epy07cryB/QKaaiWyc/ILh6AaIBQroafBTO371r6K2g==
   dependencies:
-    "@types/minimist" "^1.2.1"
+    "@types/minimist" "^1.2.2"
     chokidar "^3.5.1"
     form-data "^4.0.0"
     minimist "^1.2.5"
